@@ -1,0 +1,32 @@
+name: "Badges - Readme"
+author: Pedro Matias de Araujho
+description: "Add a Wakatime Coding Activity graph in your Readme"
+
+inputs:
+  GH_TOKEN:
+    description: "GitHub access token with Repo scope"
+    required: true
+    default: ${{ github.token }}
+
+  REPOSITORY:
+    description: "Your GitHub repository"
+    default: ${{ github.repository }}
+    required: false
+
+  COMMIT_MESSAGE:
+    description: "Add a commit message of your choice"
+    default: "Updated the Graph with new Metrics"
+    required: false
+
+  ACCLAIM_USER:
+    description: "User name used in Acclaim"
+    required: true
+    default: ${{ github.user }}
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+
+branding:
+  icon: "info"
+  color: "blue"
