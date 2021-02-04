@@ -6,9 +6,3 @@ services:
     image: dev-badge-readme
     env_file:
      - .env
-    volumes:
-      - ./log:/usr/src/app/log
-      - ./lib:/usr/src/app/lib
-      - ./settings:/usr/src/app/settings
-      - ./task:/usr/src/app/task
-      - ./util:/usr/src/app/util
