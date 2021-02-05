@@ -14,7 +14,7 @@ list_reg = f"{START_COMMENT}[\\s\\S]+{END_COMMENT}"
 repository = os.getenv("INPUT_REPOSITORY")
 ghtoken = os.getenv("INPUT_GH_TOKEN")
 commit_message = os.getenv("INPUT_COMMIT_MESSAGE")
-USER = os.getenv("INPUT_ACCLAIM_USER", "pemtajo")
+USER = os.getenv("INPUT_ACCLAIM_USER")
 
 
 def convert_to_dict(htmlBadge):
@@ -52,7 +52,7 @@ def decode_readme(data: str) -> str:
     return str(decoded_bytes, "utf-8")
 
 
-def open_readme():
+def get_repo():
     g = Github(ghtoken)
     try:
         repo = g.get_repo(repository)
@@ -61,26 +61,34 @@ def open_readme():
             "Authentication Error. Try saving a GitHub Token in your Repo Secrets or Use the GitHub Actions Token, which is automatically used by the action."
         )
         sys.exit(1)
+    return repo
+
+
+def open_readme(repo):
     return repo.get_readme()
 
 
-def save_readme(md):
-    with open("README.md", "w+") as file:
-        file.write(md)
+def save_readme(repo, contents, new_readme):
+    repo.update_file(
+        path=contents.path, message=commit_message, content=new_readme, sha=contents.sha
+    )
 
 
-def generate_new_readme(badges: str, readme: str) -> str:
+def generate_new_readme(md_badges, readme):
     """Generate a new Readme.md"""
-    badges_in_readme = f"{START_COMMENT}\n{badges}\n{END_COMMENT}"
+    badges_in_readme = f"{START_COMMENT}\n{md_badges}\n{END_COMMENT}"
     return re.sub(list_reg, badges_in_readme, readme)
 
 
 if __name__ == "__main__":
-    badges = [convert_to_dict(badge) for badge in return_badges_html(USER)]
-    # print(len(badges))
-    # print(json.dumps(badges, indent=2))
-    content = generate_md_format(badges)
-    readme = open_readme()
-    new_readme = generate_new_readme(content, readme)
+    repo = get_repo()
+    md_badges = generate_md_format(
+        [convert_to_dict(badge) for badge in return_badges_html(USER)]
+    )
+
+    contents_repo = open_readme(repo)
+    readme = decode_readme(contents_repo.content)
+    new_readme = generate_new_readme(md_badges, readme)
+
     if new_readme != readme:
-        save_readme(new_readme)
+        save_readme(repo, contents_repo, new_readme)

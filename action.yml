@@ -20,7 +20,7 @@ inputs:
 
   ACCLAIM_USER:
     description: "User name used in Acclaim"
-    default: ${{ github.user }}
+    default: ${{ github.actor }}
     required: false
 
 runs:
