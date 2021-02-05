@@ -1,0 +1,11 @@
+import os
+
+START_COMMENT = "<!--START_SECTION:badges-->"
+END_COMMENT = "<!--END_SECTION:badges-->"
+
+REPOSITORY = os.getenv("INPUT_REPOSITORY")
+GH_TOKEN = os.getenv("INPUT_GH_TOKEN")
+COMMIT_MESSAGE = os.getenv("INPUT_COMMIT_MESSAGE")
+ACCLAIM_USER = os.getenv("INPUT_ACCLAIM_USER")
+ACCLAIM_SORT = os.getenv("INPUT_ACCLAIM_SORT")
+ACCLAIM_BASE_URL= "http://www.youracclaim.com"
