@@ -22,6 +22,11 @@ inputs:
     description: "User name used in Acclaim"
     default: ${{ github.actor }}
     required: false
+  
+  ACCLAIM_SORT:
+    description: "The sort type for return acclaim badges [RECENT/POPULAR]"
+    default: RECENT
+    required: false
 
 runs:
   using: "docker"

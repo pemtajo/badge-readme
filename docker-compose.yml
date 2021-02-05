@@ -6,3 +6,5 @@ services:
     image: dev-badge-readme
     env_file:
      - .env
+    volumes:
+      - ./main.py:/main.py
