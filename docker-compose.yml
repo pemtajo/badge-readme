@@ -9,5 +9,4 @@ services:
     volumes:
       - ./main.py:/main.py
       - ./settings.py:/settings.py
-      - ./git:/git
-      - ./providers:/providers
+      - ./services:/services

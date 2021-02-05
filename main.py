@@ -1,7 +1,7 @@
 import re
 from settings import START_COMMENT, END_COMMENT
-from providers.acclaim import Acclaim
-from git.githubRepo import GithubRepo
+from services.acclaim import Acclaim
+from services.githubRepo import GithubRepo
 
 
 def generate_new_readme(md_badges, readme):
