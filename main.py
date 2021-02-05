@@ -1,15 +1,14 @@
 import re
-from settings import START_COMMENT, END_COMMENT
+from settings import START_COMMENT, END_COMMENT, LIST_REGEX
 from services.acclaim import Acclaim
 from services.githubRepo import GithubRepo
 
 
 def generate_new_readme(md_badges, readme):
     """Generate a new Readme.md"""
-    list_reg = f"{START_COMMENT}[\\s\\S]+{END_COMMENT}"
     badges_in_readme = f"{START_COMMENT}\n{md_badges}\n{END_COMMENT}"
 
-    return re.sub(list_reg, badges_in_readme, readme)
+    return re.sub(LIST_REGEX, badges_in_readme, readme)
 
 
 if __name__ == "__main__":
