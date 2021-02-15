@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  tests:
+    build: 
+      context: ../
+      dockerfile: tests/Dockerfile
+    container_name: tests-badge-readme
+    image: tests-badge-readme
+    env_file:
+     - .env.tests
+    volumes:
+      - ./tests.py:/badges/tests/tests.py

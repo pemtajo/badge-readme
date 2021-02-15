@@ -4,18 +4,32 @@ import lxml, requests
 
 from settings import ACCLAIM_SORT, ACCLAIM_USER, ACCLAIM_BASE_URL
 
+
 class Acclaim:
-    def __init__(self):
+    def __init__(self, f=None):
+        self.FILE = f
         self.BASE_URL = ACCLAIM_BASE_URL
         self.USER = ACCLAIM_USER
         self.SORT = ACCLAIM_SORT
-    
+
+    def data_from_html(self):
+        if self.FILE:
+            with open(self.FILE, "r") as f:
+                return f.read()
+
+        url = f"{self.BASE_URL}/users/{self.USER}/badges?sort={self.sort_by()}"
+        response = requests.get(url)
+
+        return response.text
+
     def sort_by(self):
-        return "most_popular" if self.SORT == 'POPULAR' else "-state_updated_at" 
-        
+        return "most_popular" if self.SORT == "POPULAR" else "-state_updated_at"
+
     def convert_to_dict(self, htmlBadge):
         soupBadge = BeautifulSoup(str(htmlBadge), "lxml")
-        img = soupBadge.findAll("img", {"class": "cr-standard-grid-item-content__image"})[0]
+        img = soupBadge.findAll(
+            "img", {"class": "cr-standard-grid-item-content__image"}
+        )[0]
         return {
             "title": htmlBadge["title"],
             "href": self.BASE_URL + htmlBadge["href"],
@@ -23,15 +37,13 @@ class Acclaim:
         }
 
     def return_badges_html(self):
-        url = f"{self.BASE_URL}/users/{self.USER}/badges?sort={self.sort_by()}"
-        response = requests.get(url)
-
-        data = response.text
+        data = self.data_from_html()
         soup = BeautifulSoup(data, "lxml")
         return soup.findAll("a", {"class": "cr-public-earned-badge-grid-item"})
 
-
     def generate_md_format(self, badges):
+        if not badges:
+            return None
         doc, tag, text = Doc().tagtext()
         with tag("p", align="left"):
             for badge in badges:
@@ -39,6 +51,8 @@ class Acclaim:
                     with tag("img", src=badge["img"], alt=badge["title"]):
                         text("")
         return doc.getvalue()
-    
+
     def get_markdown(self):
-        return self.generate_md_format([self.convert_to_dict(badge) for badge in self.return_badges_html()])
+        return self.generate_md_format(
+            [self.convert_to_dict(badge) for badge in self.return_badges_html()]
+        )
