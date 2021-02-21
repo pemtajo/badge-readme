@@ -7,4 +7,4 @@ RUN pip install -r requirements.txt
 # Copy code.
 COPY . .
 
-CMD python main.py
+CMD python /main.py
