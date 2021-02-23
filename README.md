@@ -4,9 +4,8 @@ Add a badges only from Acclaim (for now), in your Readme.
 ## Prep Work
 
 1. You need to update the markdown file(.md) with 2 comments. You can refer [here](#update-your-readme) for updating it.
-2. **OPTIONAL** You'll need a GitHub API Token with `repo` scope from [here](https://github.com/settings/tokens) if you're running the action not in your Profile Repository
-   - You can use [this](#other-repository-not-profile) example to work it out
-3. You can follow either of the Two Examples according to your needs to get started with.
+
+2. You can follow either of the Two Examples according to your needs to get started with.
 
 ## Update your Readme
 
@@ -27,7 +26,7 @@ _If you're executing the workflow on your Profile Repository (`<username>/<usern
 
 Please follow the steps below:
 
-1. Go to your `<username>/<username>/actions`, hit `New workflow`, `set up a workflow yourself`, delete all the default content github made for you.
+1. Go to your `<username>/<username>/actions`, hit  `New workflow`, `set up a workflow yourself`, delete all the default content github made for you.
 2. Copy the following code and paste it to your new workflow you created at step 1:
 
 ```yml
@@ -35,7 +34,7 @@ name: Update badges
 
 on:
   schedule:
-    # Runs at 2am UTC
+    # Runs at 2am UTC every day
     - cron: "0 2 * * *"
 jobs:
   update-readme:
@@ -69,6 +68,9 @@ jobs:
 
 ### Other Repository (not Profile)
 
+You'll need a GitHub API Token with `repo` scope from [here](https://github.com/settings/tokens) if you're running the action not in your Profile Repository
+   - You can use [this](#other-repository-not-profile) example to work it out
+
 _If you're executing the workflow on another repo other than `<username>/<username>`_
 
 You'll need to get a [GitHub Access Token](https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) with a `repo` scope and save it in the Repo Secrets `GH_TOKEN = <Your GitHub Access Token>`
@@ -91,6 +93,9 @@ jobs:
         uses: pemtajo/badge-readme@master
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           REPOSITORY: <username/username> # optional, By default, it will automatically use the repository who's executing the workflow.
+          COMMIT_MESSAGE: "My commit message to update badges" # optional
+          ACCLAIM_USER: <username_acclaim> # optional, but default will use the same from github
+          ACCLAIM_SORT: RECENT or POPULAR # optional, this is the two forms from acclaim sort, more popular or recent first, by default use RECENT
 ```
 
 ## Tests
