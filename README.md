@@ -1,4 +1,4 @@
-![alt text](https://github.com/pemtajo/badge-readme/blob/screenshot-readme.png?raw=true)
+![alt text](https://github.com/pemtajo/badge-readme/blob/master/blob/screenshot-readme.png?raw=true)
 # badge-readme
 Add a badges only from Acclaim (for now), in your Readme.
 
