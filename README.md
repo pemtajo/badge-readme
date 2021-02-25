@@ -1,3 +1,4 @@
+![alt text](https://github.com/pemtajo/badge-readme/blob/screenshot-readme.png?raw=true)
 # badge-readme
 Add a badges only from Acclaim (for now), in your Readme.
 
@@ -24,18 +25,16 @@ _If you're executing the workflow on your Profile Repository (`<username>/<usern
 
 > You wouldn't need an GitHub Access Token since GitHub Actions already makes one for you.
 
-Please follow the steps below:
+- Create a new file named `update-badges.yml` with the following contents inside the workflows folder:
 
-1. Go to your `<username>/<username>/actions`, hit  `New workflow`, `set up a workflow yourself`, delete all the default content github made for you.
-2. Copy the following code and paste it to your new workflow you created at step 1:
 
 ```yml
 name: Update badges
 
 on:
   schedule:
-    # Runs at 2am UTC every day
-    - cron: "0 2 * * *"
+    # Runs at 0am UTC every day
+    - cron: "0 0 * * *"
 jobs:
   update-readme:
     name: Update Readme with badges
@@ -53,11 +52,14 @@ jobs:
 ```
 
 4. But default, the script will use the same username from github, but will can change it, and some others variables:
-    - *GH_TOKEN*: GitHub access token with Repo scope
-    - *REPOSITORY*: Your GitHub repository
-    - *ACCLAIM_USER*: User name used in Acclaim
-    - *ACCLAIM_SORT*: The sort type for return acclaim badges [RECENT/POPULAR] (default RECENT)
-    - *COMMIT_MESSAGE*: Add a commit message of your choice (Default: Updated README with new badges)
+
+| Option | Default Value | Description | Required |
+|--------|--------|--------|--------|
+|*GH_TOKEN*| - |GitHub access token with Repo scope|No|
+|*REPOSITORY*| `<username>/<username> `|Your GitHub repository|No|
+|*ACCLAIM_USER*| `<username>` |User name used in Acclaim|No|
+|*ACCLAIM_SORT*| `RECENT` |The sort type for return acclaim badges [RECENT/POPULAR] |No|
+|*GH_TOKEN*| `Updated README with new badges` |Add a commit message of your choice|No|
 
  Go to your repo secrets by hitting `Settings => Secrets` tab in your profile repo. You can also enter the url https://github.com/USERNAME/USERNAME/settings/secrets . Please replace the `USERNAME` with your own username.
  
