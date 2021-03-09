@@ -2,6 +2,8 @@
 # badge-readme
 Add badges only from Acclaim (for now), in your Readme.
 
+_Attention: the data access is public, but it is the individual responsibility of whoever shares the reported data_
+
 ## Prep Work
 
 1. You need to update the markdown file(.md) with 2 comments. You can refer [here](#update-your-readme) for updating it.
