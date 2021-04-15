@@ -1,6 +1,6 @@
 ![alt text](https://github.com/pemtajo/badge-readme/blob/master/blob/screenshot-readme.png?raw=true)
 # badge-readme
-Add badges only from Acclaim (for now), in your Readme.
+Add badges only from Credly (for now), in your Readme.
 
 _Attention: the data access is public, but it is the individual responsibility of whoever shares the reported data_
 
@@ -59,8 +59,8 @@ jobs:
 |--------|--------|--------|--------|
 |*GH_TOKEN*| - |GitHub access token with Repo scope|No|
 |*REPOSITORY*| `<username>/<username> `|Your GitHub repository|No|
-|*ACCLAIM_USER*| `<username>` |User name used in Acclaim|No|
-|*ACCLAIM_SORT*| `RECENT` |The sort type for return acclaim badges [RECENT/POPULAR] |No|
+|*CREDLY_USER*| `<username>` |User name used in Credly|No|
+|*CREDLY_SORT*| `RECENT` |The sort type for return credly badges [RECENT/POPULAR] |No|
 |*GH_TOKEN*| `Updated README with new badges` |Add a commit message of your choice|No|
 
  Go to your repo secrets by hitting `Settings => Secrets` tab in your profile repo. You can also enter the url https://github.com/USERNAME/USERNAME/settings/secrets . Please replace the `USERNAME` with your own username.
@@ -98,8 +98,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           REPOSITORY: <username/username> # optional, By default, it will automatically use the repository who's executing the workflow.
           COMMIT_MESSAGE: "My commit message to update badges" # optional
-          ACCLAIM_USER: <username_acclaim> # optional, but default will use the same from github
-          ACCLAIM_SORT: RECENT or POPULAR # optional, this is the two forms from acclaim sort, more popular or recent first, by default use RECENT
+          CREDLY_USER: <username_credly> # optional, but default will use the same from github
+          CREDLY_SORT: RECENT or POPULAR # optional, this is the two forms from credly sort, more popular or recent first, by default use RECENT
 ```
 
 ## Tests
