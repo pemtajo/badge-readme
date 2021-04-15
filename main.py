@@ -1,6 +1,6 @@
 import re
 from settings import START_COMMENT, END_COMMENT, LIST_REGEX
-from services.acclaim import Acclaim
+from services.credly import Credly
 from services.githubRepo import GithubRepo
 
 
@@ -15,9 +15,9 @@ def generate_new_readme(md_badges, readme):
 
 if __name__ == "__main__":
     git = GithubRepo()
-    acclaim_badges = Acclaim()
+    credly_badges = Credly()
     readme = git.get_readme()
 
-    new_readme = generate_new_readme(acclaim_badges.get_markdown(), readme)
+    new_readme = generate_new_readme(credly_badges.get_markdown(), readme)
     if new_readme != readme:
         git.save_readme(new_readme)

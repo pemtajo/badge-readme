@@ -2,15 +2,15 @@ from bs4 import BeautifulSoup
 from yattag import Doc
 import lxml, requests
 
-from settings import ACCLAIM_SORT, ACCLAIM_USER, ACCLAIM_BASE_URL
+from settings import CREDLY_SORT, CREDLY_USER, CREDLY_BASE_URL
 
 
-class Acclaim:
+class Credly:
     def __init__(self, f=None):
         self.FILE = f
-        self.BASE_URL = ACCLAIM_BASE_URL
-        self.USER = ACCLAIM_USER
-        self.SORT = ACCLAIM_SORT
+        self.BASE_URL = CREDLY_BASE_URL
+        self.USER = CREDLY_USER
+        self.SORT = CREDLY_SORT
 
     def data_from_html(self):
         if self.FILE:

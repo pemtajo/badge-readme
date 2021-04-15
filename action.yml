@@ -18,13 +18,13 @@ inputs:
     default: "Updated README with new badges"
     required: false
 
-  ACCLAIM_USER:
-    description: "User name used in Acclaim"
+  CREDLY_USER:
+    description: "User name used in Credly"
     default: ${{ github.actor }}
     required: false
   
-  ACCLAIM_SORT:
-    description: "The sort type for return acclaim badges [RECENT/POPULAR]"
+  CREDLY_SORT:
+    description: "The sort type for return credly badges [RECENT/POPULAR]"
     default: RECENT
     required: false
 
