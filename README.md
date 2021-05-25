@@ -61,7 +61,7 @@ jobs:
 |*REPOSITORY*| `<username>/<username> `|Your GitHub repository|No|
 |*CREDLY_USER*| `<username>` |User name used in Credly|No|
 |*CREDLY_SORT*| `RECENT` |The sort type for return credly badges [RECENT/POPULAR] |No|
-|*GH_TOKEN*| `Updated README with new badges` |Add a commit message of your choice|No|
+|*COMMIT_MESSAGE*| `Updated README with new badges` |Add a commit message of your choice|No|
 
  Go to your repo secrets by hitting `Settings => Secrets` tab in your profile repo. You can also enter the url https://github.com/USERNAME/USERNAME/settings/secrets . Please replace the `USERNAME` with your own username.
  
