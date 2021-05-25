@@ -1,6 +1,6 @@
 ![alt text](https://github.com/pemtajo/badge-readme/blob/master/blob/screenshot-readme.png?raw=true)
 # badge-readme
-Add badges only from Credly (for now), in your Readme.
+Add badges only from [Credly](https://www.credly.com/) (for now), in [your Readme](https://docs.github.com/en/github/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme).
 
 _Attention: the data access is public, but it is the individual responsibility of whoever shares the reported data_
 
