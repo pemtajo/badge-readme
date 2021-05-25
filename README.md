@@ -96,7 +96,7 @@ jobs:
       - name: Badges - Readme
         uses: pemtajo/badge-readme@master
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          REPOSITORY: <username/username> # optional, By default, it will automatically use the repository who's executing the workflow.
+          REPOSITORY: <username>/<username> # optional, By default, it will automatically use the repository who's executing the workflow.
           COMMIT_MESSAGE: "My commit message to update badges" # optional
           CREDLY_USER: <username_credly> # optional, but default will use the same from github
           CREDLY_SORT: RECENT or POPULAR # optional, this is the two forms from credly sort, more popular or recent first, by default use RECENT
