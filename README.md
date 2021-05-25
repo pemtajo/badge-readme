@@ -106,7 +106,7 @@ jobs:
 
 ### Running Tests
 
-To run tests simply execute the following in the folder `tests`. (need `docker` and `docker-compose` installled):
+To run tests simply execute the following in the folder `tests`. (need `docker` and `docker-compose` installed):
 
 ```bash
 docker-compose up
