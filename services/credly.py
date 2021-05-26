@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup
-from yattag import Doc
 import lxml, requests
 
 from settings import CREDLY_SORT, CREDLY_USER, CREDLY_BASE_URL
@@ -44,13 +43,7 @@ class Credly:
     def generate_md_format(self, badges):
         if not badges:
             return None
-        doc, tag, text = Doc().tagtext()
-        with tag("p", align="left"):
-            for badge in badges:
-                with tag("a", href=badge["href"], title=badge["title"]):
-                    with tag("img", src=badge["img"], alt=badge["title"]):
-                        text("")
-        return doc.getvalue()
+        return "\n".join(map(lambda it: f"[![{it['title']}]({it['img']})]({it['href']} \"{it['title']}\")", badges))
 
     def get_markdown(self):
         return self.generate_md_format(
