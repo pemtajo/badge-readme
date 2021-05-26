@@ -109,5 +109,5 @@ jobs:
 To run tests simply execute the following in the folder `tests`. (need `docker` and `docker-compose` installled):
 
 ```bash
-docker-compose up
+docker-compose build && docker-compose up
 ```
