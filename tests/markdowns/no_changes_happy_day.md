@@ -1,6 +1,7 @@
 # badge-readme
 This is example file
 <!--START_SECTION:badges-->
+
 [![Docker Essentials: A Developer Introduction](https://images.credly.com/size/110x110/images/08216781-93cb-4ba1-8110-8eb3401fa8ce/Docker_Essentials_-_ISDN.png)](http://www.credly.com/badges/24bcb006-58f8-494c-85e3-dfee10ea7b57 "Docker Essentials: A Developer Introduction")
 [![IBM Blockchain Essentials V2](https://images.credly.com/size/110x110/images/8e6bba9c-544d-46b0-bc7b-324fc85042ba/Blockchain_Essentials_V2.png)](http://www.credly.com/badges/47065bcc-63f9-4b1f-b403-48bcdbc78f54 "IBM Blockchain Essentials V2")
 [![Enterprise Design Thinking - Team Essentials for AI](https://images.credly.com/size/110x110/images/09f644d1-eed2-4279-bc49-1e26cddc9d3d/Team_Essentials.png)](http://www.credly.com/badges/5e280a76-446b-431a-80f0-7d2dc448a407 "Enterprise Design Thinking - Team Essentials for AI")
