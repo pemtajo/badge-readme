@@ -1,4 +1,4 @@
-![alt text](https://github.com/pemtajo/badge-readme/blob/master/blob/screenshot-readme.png?raw=true)
+![alt text](https://github.com/pemtajo/badge-readme/blob/main/blob/screenshot-readme.png?raw=true)
 # badge-readme
 Add badges only from [Credly](https://www.credly.com/) (for now), in [your Readme](https://docs.github.com/en/github/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme).
 
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Badges - Readme
-        uses: pemtajo/badge-readme@master
+        uses: pemtajo/badge-readme@main
 ```
 
 3. Add a comment to your `README.md` like this:
@@ -94,7 +94,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Badges - Readme
-        uses: pemtajo/badge-readme@master
+        uses: pemtajo/badge-readme@main
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           REPOSITORY: <username>/<username> # optional, By default, it will automatically use the repository who's executing the workflow.
           COMMIT_MESSAGE: "My commit message to update badges" # optional
