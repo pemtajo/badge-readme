@@ -95,6 +95,7 @@ jobs:
     steps:
       - name: Badges - Readme
         uses: pemtajo/badge-readme@main
+        with:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           REPOSITORY: <username>/<username> # optional, By default, it will automatically use the repository who's executing the workflow.
           COMMIT_MESSAGE: "My commit message to update badges" # optional
