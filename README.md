@@ -57,11 +57,13 @@ jobs:
 
 | Option | Default Value | Description | Required |
 |--------|--------|--------|--------|
-|*GH_TOKEN*| - |GitHub access token with Repo scope|No|
+|*GH_TOKEN*| - |GitHub access token with Repo scope|yes|
 |*REPOSITORY*| `<username>/<username> `|Your GitHub repository|No|
 |*CREDLY_USER*| `<username>` |User name used in Credly|No|
 |*CREDLY_SORT*| `RECENT` |The sort type for return credly badges [RECENT/POPULAR] |No|
 |*COMMIT_MESSAGE*| `Updated README with new badges` |Add a commit message of your choice|No|
+|*BADGE_SIZE*| `110` |Defines the badge dimension.|No|
+|*NUMBER_LAST_BADGES*|`0`|the number of the last badges that need to show - (0 to not set limit) |No
 
  Go to your repo secrets by hitting `Settings => Secrets` tab in your profile repo. You can also enter the url https://github.com/USERNAME/USERNAME/settings/secrets . Please replace the `USERNAME` with your own username.
  
@@ -101,6 +103,8 @@ jobs:
           COMMIT_MESSAGE: "My commit message to update badges" # optional
           CREDLY_USER: <username_credly> # optional, but default will use the same from github
           CREDLY_SORT: RECENT or POPULAR # optional, this is the two forms from credly sort, more popular or recent first, by default use RECENT
+          BADGE_SIZE: the resolution to the badges images # optional, 110x110 default
+          NUMBER_LAST_BADGES: the maximum last badges to show # optional, will show the 48 in the first page
 ```
 
 ## Tests
