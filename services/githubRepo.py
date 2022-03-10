@@ -6,7 +6,10 @@ import sys, base64
 class GithubRepo:
     def __init__(self):
         self.COMMIT_MESSAGE=COMMIT_MESSAGE
-        g = Github(GH_TOKEN)
+
+        # Automatic GitHub API detection.
+        g = Github(base_url=GH_API_URL, login_or_token=GH_TOKEN)
+
         try:
             self.repo = g.get_repo(REPOSITORY)
         except GithubException:
