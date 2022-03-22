@@ -1,6 +1,6 @@
 from github import Github, GithubException
 
-from settings import REPOSITORY, GH_TOKEN, COMMIT_MESSAGE
+from settings import REPOSITORY, GH_TOKEN, GH_API_URL, COMMIT_MESSAGE
 import sys, base64
 
 class GithubRepo:

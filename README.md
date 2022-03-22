@@ -57,7 +57,8 @@ jobs:
 
 | Option | Default Value | Description | Required |
 |--------|--------|--------|--------|
-|*GH_TOKEN*| - |GitHub access token with Repo scope|yes|
+|*GH_TOKEN*| - |GitHub access token with Repo scope|Yes|
+|*GH_API_URL*| `https://api.github.com` | GitHub API (can be enterprise API)|No|
 |*REPOSITORY*| `<username>/<username> `|Your GitHub repository|No|
 |*CREDLY_USER*| `<username>` |User name used in Credly|No|
 |*CREDLY_SORT*| `RECENT` |The sort type for return credly badges [RECENT/POPULAR] |No|
