@@ -37,6 +37,11 @@ inputs:
     description: "the number of the last badges that need to show - (0 to not set limit)"
     default: "0"
     required: false
+  
+  GH_API_URL: 
+    description: "The GitHub URL, can changed for enterprise github"
+    default: https://api.github.com
+    required: false
 
 runs:
   using: "docker"
