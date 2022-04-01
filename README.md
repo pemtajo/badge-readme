@@ -112,8 +112,16 @@ jobs:
 
 ### Running Tests
 
-To run tests simply execute the following in the folder `tests`. (need `docker` and `docker-compose` installed):
+Just run locally
+
+```bash
+python3 -m unittest discover -v -s tests
+```
+
+Or if prefere using docker, execute the following in the folder `tests`. (need `docker` and `docker-compose` installed):
 
 ```bash
 docker-compose build && docker-compose up
 ```
+
+
