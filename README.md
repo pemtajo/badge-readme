@@ -13,10 +13,10 @@
 <br/>
 <br/>
 <br/>
-<p><img src = "https://github.com/Letgis/Letgis/blob/main/Icons/media_social_whatsapp_icon.svg">
-<img src = "https://github.com/Letgis/Letgis/blob/main/Icons/gmail_logo_logos_icon.svg">
-<img src = "https://github.com/Letgis/Letgis/blob/main/Icons/logo_outlook_icon.svg">
-<img src = "https://github.com/Letgis/Letgis/blob/main/Icons/discord_logo_logos_icon.svg"></p>
+<p><img src = "https://github.com/Letgis/Letgis/blob/main/Icons/media_social_whatsapp_icon.svg" height="90" width="90">
+<img src = "https://github.com/Letgis/Letgis/blob/main/Icons/gmail_logo_logos_icon.svg"height="90" width="90">
+<img src = "https://github.com/Letgis/Letgis/blob/main/Icons/logo_outlook_icon.svg"height="90" width="90">
+<img src = "https://github.com/Letgis/Letgis/blob/main/Icons/discord_logo_logos_icon.svg"height="90" width="90"></p>
 
 
 
