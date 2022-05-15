@@ -1,7 +1,7 @@
 
 <h1 align="center"> Hi, I'm Leticia, nice to see you here! <img src = "https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width = 38px> </h1>
 
-<h3 align="center"> Please, connect with me <a href="https://www.linkedin.com/in/leticia-anastacio-56a98b45/" target="blank"><img align="center" src="https://github.com/Letgis/Letgis/blob/main/Icons/business_linkedin_linkedin_logo_networking_social_media_icon.svg" alt="letgis" height="30" width="15" /></a> </h3>
+<h3 align="center"> Please, connect with me <a href="https://www.linkedin.com/in/leticia-anastacio-56a98b45/" target="blank"><img align="center" src="https://github.com/Letgis/Letgis/blob/main/Icons/business_linkedin_linkedin_logo_networking_social_media_icon.svg" alt="letgis" height="30" width="40" /></a> </h3>
   
 <p> - For me, a person's value is constantly improving, and never getting inside of a box complaining about everything without doing something to make things better. <p>
 <br/>
