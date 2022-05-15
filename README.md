@@ -1,7 +1,7 @@
 
 <h1 align="center"> Hi, I'm Leticia, nice to see you here! <img src = "https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width = 38px> </h1>
 
-<h5 align="center"> - For me, a person's value is constantly improving, and never getting inside of a box complaining about everything without doing something to make things better. </h5:
+<h5 align="center"> - For me, a person's value is constantly improving, and never getting inside of a box complaining about everything without doing something to make things better. </h5>
 
 <h3 align="center"> Please, connect with me <a href="https://www.linkedin.com/in/leticia-anastacio-56a98b45/" target="blank">
 <br/>
