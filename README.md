@@ -1,11 +1,11 @@
 
 <h1 align="center"> Hi, I'm Leticia, nice to see you here! <img src = "https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width = 50px> </h1>
 
-<h3 align="center"> Please, connect with me <a href="https://www.linkedin.com/in/leticia-anastacio-56a98b45/" target="blank"><img align="center" height="30" width="30" /></a> </h3>
+<h3 align="center"> Please, connect with me <a href="https://www.linkedin.com/in/leticia-anastacio-56a98b45/" target="blank"><img align="right" src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/linkedin.svg" alt="letgis" height="30" width="30" /></a> </h3>
   
-<p> - For me, a person's value is constantly improving, and never getting inside of a box complaining about everything without doing something to make things better.</p>
-
-
+<p> - For me, a person's value is constantly improving, and never getting inside of a box complaining about everything without doing something to make things better.
+</p>
+</p>
 
 
 <h1 align="center"> Skills <img src = "https://media2.giphy.com/media/QssGEmpkyEOhBCb7e1/giphy.gif?cid=ecf05e47a0n3gi1bfqntqmob8g9aid1oyj2wr3ds3mg700bl&rid=giphy.gif" width = 32px></h1>
