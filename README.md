@@ -3,11 +3,8 @@
 <h5 align="center"> - For me, a person's value is constantly improving, and never getting inside of a box complaining about everything without doing something to make things better. </h5>
 
 <h3 align="center"> Connect with me :D <a href="https://www.linkedin.com/in/leticia-anastacio-56a98b45/" target="blank">
-<img align="center" src="https://github.com/Letgis/Letgis/blob/main/Icons/label_linkedin_logo_linkedin%20logo_icon.svg" alt="letgis" height="90" width="90" /></a>
-<img src = "https://github.com/Letgis/Letgis/blob/main/Icons/media_social_whatsapp_icon.svg" height="50" width="50">
-<img src = "https://github.com/Letgis/Letgis/blob/main/Icons/gmail_logo_logos_icon.svg"height="50" width="50">
-<img src = "https://github.com/Letgis/Letgis/blob/main/Icons/logo_outlook_icon.svg"height="50" width="50">
-<img src = "https://github.com/Letgis/Letgis/blob/main/Icons/discord_logo_logos_icon.svg"height="50" width="50"> </h3>
+<br/>
+<img align="center" src="https://github.com/Letgis/Letgis/blob/main/Icons/label_linkedin_logo_linkedin%20logo_icon.svg" alt="letgis" height="90" width="90" /></a> </h3>
 
 <br/>
 <br/>
