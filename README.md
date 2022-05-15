@@ -2,10 +2,10 @@
 
 <h5 align="center"> - For me, a person's value is constantly improving, and never getting inside of a box complaining about everything without doing something to make things better. </h5>
 
-<h3 align="center"> Please, connect with me <a href="https://www.linkedin.com/in/leticia-anastacio-56a98b45/" target="blank">
+<h3 align="center"> Connect with me :D <a href="https://www.linkedin.com/in/leticia-anastacio-56a98b45/" target="blank">
 <br/>
 <br/>
-<img align="center" src="https://github.com/Letgis/Letgis/blob/main/Icons/iphone_linkedin_mobile%20phone_phone_icon.svg" alt="letgis" height="30"/></a> </h3>
+<img align="center" src="https://github.com/Letgis/Letgis/blob/main/Icons/label_linkedin_logo_linkedin%20logo_icon.svg" alt="letgis" height="30" width="40" /></a> </h3>
 
 <br/>
 <br/>
