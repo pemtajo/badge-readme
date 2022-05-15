@@ -23,7 +23,7 @@
   <a href="https://reactjs.org/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a> <p>
   
   
-  
+<h1 align="center">Badges</h1>
   
 <!--START_SECTION:badges-->
 <!--END_SECTION:badges-->
