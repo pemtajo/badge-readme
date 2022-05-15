@@ -3,7 +3,7 @@
 
 <h3 align="center"> Please, connect with me <a href="https://www.linkedin.com/in/leticia-anastacio-56a98b45/" target="blank">
 <br/>
-<img align="center" src="https://github.com/Letgis/Letgis/blob/main/Icons/business_linkedin_linkedin_logo_networking_social_media_icon.svg" alt="letgis" height="30" width="40" /></a> </h3>
+<img align="center" src="https://github.com/Letgis/Letgis/blob/main/Icons/business_linkedin_linkedin_logo_networking_social_media_icon.svg" alt="letgis" height="30" width="50" /></a> </h3>
   
 <p> - For me, a person's value is constantly improving, and never getting inside of a box complaining about everything without doing something to make things better. <p>
 <br/>
