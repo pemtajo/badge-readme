@@ -5,7 +5,7 @@
 <h3 align="center"> Connect with me :D <a href="https://www.linkedin.com/in/leticia-anastacio-56a98b45/" target="blank">
 <br/>
 <br/>
-<img align="center" src="https://github.com/Letgis/Letgis/blob/main/Icons/label_linkedin_logo_linkedin%20logo_icon.svg" alt="letgis" height="50" width="50" /></a> </h3>
+<img align="center" src="https://github.com/Letgis/Letgis/blob/main/Icons/label_linkedin_logo_linkedin%20logo_icon.svg" alt="letgis" height="70" width="70" /></a> </h3>
 
 <br/>
 <br/>
