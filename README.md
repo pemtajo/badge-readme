@@ -5,9 +5,9 @@
 
 <h3 align="center"> Please, connect with me <a href="https://www.linkedin.com/in/leticia-anastacio-56a98b45/" target="blank">
 <br/>
+<br/>
 <img align="center" src="https://github.com/Letgis/Letgis/blob/main/Icons/business_linkedin_linkedin_logo_networking_social_media_icon.svg" alt="letgis" height="30" width="70" /></a> </h3>
 
-<br/>
 <br/>
 <br/>
 
