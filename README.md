@@ -2,7 +2,7 @@
 
 <h5 align="center"> - For me, a person's value is constantly improving, and never getting inside of a box complaining about everything without doing something to make things better. </h5>
 
-<h3 align="center"> Connect with me :D <a href="https://www.linkedin.com/in/leticia-anastacio-56a98b45/" target="blank">
+<h3 align="center"> Connect with me <a href="https://www.linkedin.com/in/leticia-anastacio-56a98b45/" target="blank">
 <br/>
 <img align="center" src="https://github.com/Letgis/Letgis/blob/main/Icons/label_linkedin_logo_linkedin%20logo_icon.svg" alt="letgis" height="90" width="90" /></a> </h3>
 
