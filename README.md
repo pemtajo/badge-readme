@@ -9,7 +9,7 @@ _Attention: the data access is public, but it is the individual responsibility o
 
   - You need to update the markdown file(.md) with 2 comments. You can refer [here](#update-your-readme) for updating it.
   - You can follow either of the Two Examples according to your needs to get started with.
-</br>
+
 
 ## Start point
 
@@ -23,7 +23,7 @@ _Attention: the data access is public, but it is the individual responsibility o
   ```
 
   Note:_ These lines will be our entry-points for the dev metrics._
-</br>
+
 
 2. Repository Profile
 
@@ -47,15 +47,16 @@ _Attention: the data access is public, but it is the individual responsibility o
             - name: Badges - Readme
               uses: pemtajo/badge-readme@main
      ```
+      ```
    
 
 
 
 3. Other Repository (not Profile)
 
-  If you're executing the workflow on another repo other than `<username>/<username>`, you will need:
+  If you are executing the workflow in another repo other than `<username>/<username>`, you will need:
 
-    a. A GitHub API Token with `repo` scope from [here] - https://github.com/settings/tokens. _(note: if you not running the action in your Profile Repository)_
+    a. A GitHub API Token with repo scope from [here] - https://github.com/settings/tokens. _(note: if you not running the action in your Profile Repository)_
     b. Also, you can use [this](#other-repository-not-profile) example to work it out.
     c. A [GitHub Access Token] is required and you can set it up through this link > (https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) 
     d. Save in your the Repo Secrets `GH_TOKEN = <Your GitHub Access Token>`
@@ -88,20 +89,18 @@ Here is Sample Workflow File for running it:
               CREDLY_SORT: RECENT or POPULAR # optional, this is the two forms from credly sort, more popular or recent first, by default use RECENT
               BADGE_SIZE: the resolution to the badges images # optional, 110x110 default
               NUMBER_LAST_BADGES: the maximum last badges to show # optional, will show the 48 in the first page
-</br>
+
 
  
 4. Create a new `Secret`.  `Name`: `<VAR>`, `Value`
  Go to your repo secrets by hitting `Settings => Secrets` tab in your profile repo. You can also enter the url https://github.com/USERNAME/USERNAME/settings/secrets. Please replace the `USERNAME` with your own username.
-</br>
+
 
 5. Go to Workflows menu (mentioned in step 1), click `Update badges`, click `Run workflow`.
 
-</br>
 
 6. Go to your profile page. you will be able to see it.
 
-</br>
 
 ### Running Tests
 
