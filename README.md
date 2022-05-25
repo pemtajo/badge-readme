@@ -46,10 +46,7 @@ _Attention: the data access is public, but it is the individual responsibility o
           steps:
             - name: Badges - Readme
               uses: pemtajo/badge-readme@main
-     ```
- ]
-   
-
+     ```   
 
 
 3. Other Repository (not Profile)
