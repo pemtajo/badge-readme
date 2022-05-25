@@ -56,13 +56,13 @@ _Attention: the data access is public, but it is the individual responsibility o
 
   If you are executing the workflow in another repo other than `<username>/<username>`, you will need:
 
-    a. A GitHub API Token with repo scope from [here] - https://github.com/settings/tokens. _(note: if you not running the action in your Profile Repository)_
-    b. Also, you can use [this](#other-repository-not-profile) example to work it out.
-    c. A [GitHub Access Token] is required and you can set it up through this link > (https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) 
-    d. Save in your the Repo Secrets `GH_TOKEN = <Your GitHub Access Token>`
+  - A GitHub API Token with repo scope from [here] - https://github.com/settings/tokens. _(note: if you not running the action in your Profile Repository)_
+  - b. Also, you can use [this](#other-repository-not-profile) example to work it out.
+  - c. A [GitHub Access Token] is required and you can set it up through this link > (https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) 
+  - d. Save in your the Repo Secrets `GH_TOKEN = <Your GitHub Access Token>`
     
-    a. Now, open your repository profile `<username>/<username>`
-    b. Create a new file named `update-badges.yml` containing to following contents inside:
+  - e. Now, open your repository profile `<username>/<username>`
+  - f. Create a new file named `update-badges.yml` containing to following contents inside:
 
 
 Here is Sample Workflow File for running it:
