@@ -15,19 +15,19 @@ _Attention: the data access is public, but it is the individual responsibility o
 
 1. Update your Readme profile - if your github user is pemtajo you have to build your url like https://github.com/pemtajo/pemtajo (ex.: `<username>/<username>`)
 
-Add a comment to your `README.md` like this:
+  Add a comment to your `README.md` like this:
 
   ```md
   <!--START_SECTION:badges-->
   <!--END_SECTION:badges-->
   ```
 
-note:_These lines will be our entry-points for the dev metrics._
+  Note:_ These lines will be our entry-points for the dev metrics._
 
 
 2. Repository Profile
 
-Note:_If you're executing the workflow on your Profile Repository (`<username>/<username>`) You wouldn't need an GitHub Access Token since GitHub Actions already makes one for you._
+  Note:_If you're executing the workflow on your Profile Repository (`<username>/<username>`) You wouldn't need an GitHub Access Token since GitHub Actions already makes one for you._
 
   a. Open your repository profile `<username>/<username>`
   b. Create a new file named `update-badges.yml` containing to following contents inside:
@@ -46,7 +46,8 @@ Note:_If you're executing the workflow on your Profile Repository (`<username>/<
           steps:
             - name: Badges - Readme
               uses: pemtajo/badge-readme@main
-    ```
+     ```
+   
 
 
 3. Other Repository (not Profile)
