@@ -50,12 +50,13 @@ _Attention: the data access is public, but it is the individual responsibility o
    
 
 
+
 3. Other Repository (not Profile)
-
+# oi
   If you're executing the workflow on another repo other than `<username>/<username>`, you will need:
-
+# oi
     a. A GitHub API Token with `repo` scope from [here] - https://github.com/settings/tokens. _(note: if you not running the action in your Profile Repository)_
-    b. Also, you can use [this](#other-repository-not-profile) example to work it out.
+   # oi b. Also, you can use [this](#other-repository-not-profile) example to work it out.
     c. A [GitHub Access Token] is required and you can set it up through this link > (https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) 
     d. Save in your the Repo Secrets `GH_TOKEN = <Your GitHub Access Token>`
     
@@ -98,8 +99,6 @@ Here is Sample Workflow File for running it:
 
 6. Go to your profile page. you will be able to see it.
 
-
-```
 
 ### Running Tests
 
