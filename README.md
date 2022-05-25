@@ -47,7 +47,7 @@ _Attention: the data access is public, but it is the individual responsibility o
             - name: Badges - Readme
               uses: pemtajo/badge-readme@main
      ```
-      ```
+ ]
    
 
 
