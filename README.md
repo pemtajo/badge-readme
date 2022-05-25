@@ -9,7 +9,7 @@ _Attention: the data access is public, but it is the individual responsibility o
 
   - You need to update the markdown file(.md) with 2 comments. You can refer [here](#update-your-readme) for updating it.
   - You can follow either of the Two Examples according to your needs to get started with.
-
+</br>
 
 ## Start point
 
@@ -23,7 +23,7 @@ _Attention: the data access is public, but it is the individual responsibility o
   ```
 
   Note:_ These lines will be our entry-points for the dev metrics._
-
+</br>
 
 2. Repository Profile
 
@@ -88,17 +88,20 @@ Here is Sample Workflow File for running it:
               CREDLY_SORT: RECENT or POPULAR # optional, this is the two forms from credly sort, more popular or recent first, by default use RECENT
               BADGE_SIZE: the resolution to the badges images # optional, 110x110 default
               NUMBER_LAST_BADGES: the maximum last badges to show # optional, will show the 48 in the first page
-
+</br>
 
  
 4. Create a new `Secret`.  `Name`: `<VAR>`, `Value`
  Go to your repo secrets by hitting `Settings => Secrets` tab in your profile repo. You can also enter the url https://github.com/USERNAME/USERNAME/settings/secrets. Please replace the `USERNAME` with your own username.
+</br>
 
 5. Go to Workflows menu (mentioned in step 1), click `Update badges`, click `Run workflow`.
 
+</br>
 
 6. Go to your profile page. you will be able to see it.
 
+</br>
 
 ### Running Tests
 
