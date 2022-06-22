@@ -134,7 +134,7 @@ Just run locally
 python3 -m unittest discover -v -s tests
 ```
 
-Or if prefere using docker, execute the following in the folder `tests`. (need `docker` and `docker-compose` installed):
+Or if the use of Docker is prefered, execute the following in the folder `tests`. (need `docker` and `docker-compose` installed):
 
 ```bash
 docker-compose build && docker-compose up
