@@ -1,7 +1,13 @@
 from bs4 import BeautifulSoup
 import lxml, requests
 
-from settings import CREDLY_SORT, CREDLY_USER, CREDLY_BASE_URL, BADGE_SIZE, NUMBER_LAST_BADGES
+from settings import (
+    CREDLY_SORT,
+    CREDLY_USER,
+    CREDLY_BASE_URL,
+    BADGE_SIZE,
+    NUMBER_LAST_BADGES,
+)
 
 
 class Credly:
@@ -11,11 +17,12 @@ class Credly:
         self.USER = CREDLY_USER
         self.SORT = CREDLY_SORT
 
+        print(self.BASE_URL, self.USER, self.SORT)
+
     def data_from_html(self):
         if self.FILE:
             with open(self.FILE, "r") as f:
                 return f.read()
-
         url = f"{self.BASE_URL}/users/{self.USER}/badges?sort={self.sort_by()}"
         response = requests.get(url)
 
@@ -30,9 +37,9 @@ class Credly:
             "img", {"class": "cr-standard-grid-item-content__image"}
         )[0]
         return {
-            "title": htmlBadge["title"],
+            "title": str(htmlBadge["title"]).replace('"', '\\"'),
             "href": self.BASE_URL + htmlBadge["href"],
-            "img": img["src"].replace('110x110', f'{BADGE_SIZE}x{BADGE_SIZE}'),
+            "img": img["src"].replace("110x110", f"{BADGE_SIZE}x{BADGE_SIZE}"),
         }
 
     def return_badges_html(self):
@@ -43,10 +50,19 @@ class Credly:
     def generate_md_format(self, badges):
         if not badges:
             return None
-        return "\n".join(map(lambda it: f"[![{it['title']}]({it['img']})]({it['href']} \"{it['title']}\")", badges))
+        return "\n".join(
+            map(
+                lambda it: f"[![{it['title']}]({it['img']})]({it['href']} \"{it['title']}\")",
+                badges,
+            )
+        )
 
     def get_markdown(self):
-        badges_html = self.return_badges_html()[0:NUMBER_LAST_BADGES] if NUMBER_LAST_BADGES > 0 else self.return_badges_html()
+        badges_html = (
+            self.return_badges_html()[0:NUMBER_LAST_BADGES]
+            if NUMBER_LAST_BADGES > 0
+            else self.return_badges_html()
+        )
         return self.generate_md_format(
             [self.convert_to_dict(badge) for badge in badges_html]
         )
