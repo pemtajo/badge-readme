@@ -1,7 +1,7 @@
 import re
 from settings import START_COMMENT, END_COMMENT, LIST_REGEX
-from services.credly import Credly
-from services.githubRepo import GithubRepo
+from credly import Credly
+from githubRepo import GithubRepo
 
 
 def generate_new_readme(md_badges, readme):
