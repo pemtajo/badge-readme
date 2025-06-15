@@ -4,7 +4,7 @@ import unittest, json
 from unittest import TestCase
 from unittest.mock import MagicMock, patch
 
-from services.credly import Credly
+from credly import Credly
 from main import generate_new_readme
 
 BASE_FOLDER="tests/"
