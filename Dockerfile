@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory for GitHub Actions
-WORKDIR /app
+WORKDIR /github/workspace
 
 # Copy code to the working directory
 COPY . .
