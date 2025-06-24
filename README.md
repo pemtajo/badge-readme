@@ -12,7 +12,7 @@
 ## 📋 Table of Contents
 
 - [About](#about)
-- [Why Version 2.0.0?](#why-version-200)
+- [Why Version 3.0.0?](#why-version-200)
 - [Features](#features)
 - [Quick Start](#quick-start)
 - [Configuration](#configuration)
@@ -33,7 +33,7 @@
 - ⚡ **Fast and reliable** badge extraction
 - 🔧 **Easy to configure** with minimal setup
 
-## 🚀 Why Version 2.0.0?
+## 🚀 Why Version 3.0.0?
 
 ### The Challenge
 Credly recently updated their website with a completely new HTML structure and user interface. This broke the existing badge extraction functionality in version 1.x.x.
@@ -45,7 +45,7 @@ Credly recently updated their website with a completely new HTML structure and u
 - **Changed date format** and extraction methods
 
 ### Our Solution
-Version 2.0.0 completely refactors the badge extraction to work with Credly's new interface:
+Version 3.0.0 completely refactors the badge extraction to work with Credly's new interface:
 
 - ✅ **Automatic badge expansion** - Clicks "See all badges" to load everything
 - ✅ **Updated HTML parser** - Works with new class names and structure
@@ -54,7 +54,7 @@ Version 2.0.0 completely refactors the badge extraction to work with Credly's ne
 
 ## ✨ Features
 
-### 🆕 Version 2.0.0 Features
+### 🆕 Version 3.0.0 Features
 - **🎯 Smart Badge Extraction**: Automatically expands to show all badges
 - **📅 Date-Based Sorting**: Organizes badges by issue date (newest first)
 - **🔄 Modern HTML Parser**: Compatible with Credly's new interface
@@ -268,7 +268,7 @@ Our test suite covers:
 </div>
 ```
 
-**New Structure (v2.0.0):**
+**New Structure (v3.0.0):**
 ```html
 <div class="settings__skills-profile__edit-skills-profile__badge-card">
   <img class="settings__skills-profile__edit-skills-profile__badge-card__badge-image" src="...">
@@ -287,7 +287,7 @@ Dates are extracted from Portuguese format "Issued dd/mm/yy" and converted to so
 
 ## 📋 Changelog
 
-### [2.0.0] - 2024-01-XX
+### [3.0.0] - 2024-01-XX
 
 #### 🆕 Added
 - Automatic badge expansion ("See all badges" button)
@@ -319,7 +319,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - **Credly** for providing the badge platform
-- **GitHub Actions** for the automation infrastructure
+- **GitHub Actions** for the automation infrastructure[text](about:blank#blocked)
 - **Contributors** who help improve this project
 - **Open Source Community** for inspiration and support
 
