@@ -22,7 +22,7 @@ class Credly:
         self.BASE_URL = "https://www.credly.com"  # Updated to https
         self.USER = username or CREDLY_USER or "pemtajo"
         self.SORT = sort_order or CREDLY_SORT or "RECENT"
-        self.BADGE_SIZE = badge_size or BADGE_SIZE or "110"
+        self.BADGE_SIZE = badge_size or BADGE_SIZE or "80"
         self.NUMBER_BADGES = number_badges or NUMBER_LAST_BADGES or 0
 
         print(f"Credly scraper initialized for user: {self.USER}")
@@ -172,6 +172,17 @@ class Credly:
         if issuer_element:
             issuer = issuer_element.get_text(strip=True)
         
+        # Get issue date
+        issue_date = ""
+        issue_date_element = soupBadge.find("div", {"class": lambda x: x and "badge-card__issued" in x})
+        if issue_date_element:
+            date_text = issue_date_element.get_text(strip=True)
+            # Extract date from "Emitida dd/mm/yy" format
+            import re
+            date_match = re.search(r'(\d{2}/\d{2}/\d{2})', date_text)
+            if date_match:
+                issue_date = date_match.group(1)
+        
         # Get image source and adjust size
         img_src = img.get("src", "")
         if img_src:
@@ -206,7 +217,8 @@ class Credly:
             "title": title.replace('"', '\\"'),
             "href": badge_href,
             "img": img_src,
-            "issuer": issuer
+            "issuer": issuer,
+            "issue_date": issue_date
         }
 
     def return_badges_html(self):
@@ -265,7 +277,43 @@ class Credly:
             if badge_dict:
                 badge_dicts.append(badge_dict)
         
+        # Sort badges by issue date (newest first)
+        def parse_date(date_str):
+            if not date_str:
+                return None
+            try:
+                day, month, year = date_str.split('/')
+                # Convert 2-digit year to 4-digit year
+                year = '20' + year if int(year) < 50 else '19' + year
+                return f"{year}-{month.zfill(2)}-{day.zfill(2)}"
+            except:
+                return None
+        
+        # Show extracted dates for debugging
+        print("\nExtracted badge dates:")
+        for badge in badge_dicts:
+            print(f"  {badge['title']}: {badge.get('issue_date', 'No date')}")
+        
+        # Sort by date, putting badges without dates at the end
+        badge_dicts.sort(key=lambda x: parse_date(x.get('issue_date', '')) or '1900-01-01', reverse=True)
+        
+        print("\nSorted badges (newest first):")
+        for badge in badge_dicts:
+            print(f"  {badge['title']}: {badge.get('issue_date', 'No date')}")
+        
         return self.generate_md_format(badge_dicts)
+
+    def save_markdown_to_file(self, filename="badges.md"):
+        """Save markdown representation of badges to a file"""
+        markdown = self.get_markdown()
+        if markdown:
+            with open(filename, "w", encoding="utf-8") as f:
+                f.write(markdown)
+            print(f"Markdown saved to: {filename}")
+            return True
+        else:
+            print("No markdown generated - check if badges were found")
+            return False
 
 
 def main():
@@ -284,30 +332,17 @@ def main():
     badges_html = credly.return_badges_html()
     print(f"Found {len(badges_html)} badges")
     
-    # Test markdown generation
+    # Test markdown generation and save to file
     markdown = credly.get_markdown()
     
     if markdown:
-        print("\nGenerated markdown:")
+        print("\nGenerated markdown (sorted by issue date - newest first):")
         print(markdown)
+        
+        # Save markdown to file
+        credly.save_markdown_to_file("badges.md")
     else:
         print("No markdown generated - check if badges were found")
-    
-    # Test with custom parameters
-    print("\n" + "="*50)
-    print("Testing with custom parameters...")
-    
-    custom_credly = Credly(
-        username="pemtajo",
-        sort_order="POPULAR",
-        badge_size="150",
-        number_badges=5
-    )
-    
-    custom_markdown = custom_credly.get_markdown()
-    if custom_markdown:
-        print("Custom markdown generated successfully")
-        print(f"Length: {len(custom_markdown.split(chr(10)))} badges")
     
     return markdown
 
