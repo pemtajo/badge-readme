@@ -14,7 +14,11 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory for GitHub Actions
-WORKDIR /github/workspace
+WORKDIR /app
+
+COPY main.py main.py
+COPY . .
+
 
 # Install Python dependencies globally
 RUN pip3 install --upgrade pip
@@ -46,6 +50,8 @@ if [ -f "test_chromedriver.py" ]; then\n\
 fi\n\
 echo "Running main application..."\n\
 python3 main.py' > /entrypoint.sh && chmod +x /entrypoint.sh
+
+RUN ls -la
 
 # Run the entrypoint script
 ENTRYPOINT ["/entrypoint.sh"]
