@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory for GitHub Actions
-WORKDIR /github/workspace
+WORKDIR /app
 
 # Copy code to the working directory
 COPY . .
@@ -25,6 +25,8 @@ RUN ./setup_chrome.sh
 
 # Test ChromeDriver before running main app
 RUN python3 test_chromedriver.py
+
+RUN ls -la
 
 # Run the application
 CMD ["python3", "main.py"]
