@@ -26,10 +26,6 @@ fi
 CHROME_VERSION=$(google-chrome --version)
 echo "Chrome version: $CHROME_VERSION"
 
-# Install Python dependencies
-echo "Installing Python dependencies..."
-pip3 install --upgrade pip
-pip3 install -r requirements.txt
 
 # Install webdriver-manager
 echo "Installing webdriver-manager..."
