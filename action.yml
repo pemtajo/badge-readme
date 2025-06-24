@@ -22,17 +22,7 @@ inputs:
     description: "User name used in Credly"
     default: ${{ github.actor }}
     required: false
-  
-  CREDLY_SORT:
-    description: "The sort type for return credly badges [RECENT/POPULAR]"
-    default: RECENT
-    required: false
-  
-  BADGE_SIZE:
-    description: "Defines the badge dimension."
-    default: "110"
-    required: false
-  
+
   NUMBER_LAST_BADGES:
     description: "the number of the last badges that need to show - (0 to not set limit)"
     default: "0"
