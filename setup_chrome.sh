@@ -44,4 +44,4 @@ echo "Installing Python dependencies..."
 pip install -r requirements.txt
 
 echo "Setup complete!"
-echo "You can now test the scraper with: python services/credly.py" 
+echo "You can now test the scraper with: python3 main.py" 

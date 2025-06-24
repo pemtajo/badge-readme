@@ -1,10 +1,10 @@
-FROM python:latest
+FROM python:3.10-slim
 
 # Install dependencies.
-ADD requirements.txt /requirements.txt
-RUN pip install -r requirements.txt
+RUN chmod +x /setup_chrome.sh
+RUN /setup_chrome.sh
 
 # Copy code.
 COPY . .
 
-CMD python /main.py
+CMD python3 /main.py

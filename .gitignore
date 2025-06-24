@@ -4,3 +4,5 @@ __pycache__/
 # Local VS code configurations
 .vscode/
 .env
+*.html
+badges.md
