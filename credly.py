@@ -8,21 +8,16 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from settings import (
-    CREDLY_SORT,
     CREDLY_USER,
-    CREDLY_BASE_URL,
-    BADGE_SIZE,
     NUMBER_LAST_BADGES,
 )
 
 
 class Credly:
-    def __init__(self, username=None, sort_order=None, badge_size=None, number_badges=None, f=None):
+    def __init__(self, username=None, number_badges=None, f=None):
         self.FILE = f
         self.BASE_URL = "https://www.credly.com"  # Updated to https
         self.USER = username or CREDLY_USER or "pemtajo"
-        self.SORT = sort_order or CREDLY_SORT or "RECENT"
-        self.BADGE_SIZE = badge_size or BADGE_SIZE or "80"
         self.NUMBER_BADGES = number_badges or NUMBER_LAST_BADGES or 0
 
         print(f"Credly scraper initialized for user: {self.USER}")
@@ -79,22 +74,42 @@ class Credly:
                 print("Page loaded, waiting for content to stabilize...")
                 time.sleep(5)
                 
-                # Try to find badges, but don't fail if they're not there yet
+                # Try to click the "see all" button to load all badges
                 try:
-                    badges = driver.find_elements(By.CSS_SELECTOR, "[class*='badge'], [class*='cr-'], [href*='/badges/']")
-                    print(f"Found {len(badges)} potential badge elements")
-                except:
-                    print("No badge elements found yet, proceeding anyway...")
-                
+                    see_all_button_selector = ".settings__skills-profile__edit-skills-profile__badge-list__see-all button"
+                    see_all_button = WebDriverWait(driver, 10).until(
+                        EC.element_to_be_clickable((By.CSS_SELECTOR, see_all_button_selector))
+                    )
+                    
+                    initial_badge_count = len(driver.find_elements(By.CSS_SELECTOR, "[class*='badge-card__card']"))
+                    print(f"Initial badge count: {initial_badge_count}")
+
+                    print("Found 'See all' button, clicking to expand badges...")
+                    driver.execute_script("arguments[0].click();", see_all_button)
+                    
+                    # Wait for more badges to be loaded, or for the button to disappear
+                    WebDriverWait(driver, 15).until(
+                        lambda d: len(d.find_elements(By.CSS_SELECTOR, "[class*='badge-card__card']")) > initial_badge_count or not d.find_elements(By.CSS_SELECTOR, see_all_button_selector)
+                    )
+                    
+                    # Extra wait for rendering
+                    time.sleep(3)
+                    
+                    final_badge_count = len(driver.find_elements(By.CSS_SELECTOR, "[class*='badge-card__card']"))
+                    print(f"Expanded badges. Final badge count: {final_badge_count}")
+
+                except Exception as e:
+                    print(f"Could not find or click 'See all' button, or no new badges loaded: {e}")
+
                 print("Getting page source...")
                 
                 html_content = driver.page_source
                 
                 # Save HTML content to file for debugging
-                filename = f"credly_html_{self.USER}.html"
-                with open(filename, "w", encoding="utf-8") as f:
-                    f.write(html_content)
-                print(f"HTML content saved to: {filename}")
+                # filename = f"credly_html_{self.USER}_all_badges.html"
+                # with open(filename, "w", encoding="utf-8") as f:
+                #     f.write(html_content)
+                # print(f"HTML content with all badges saved to: {filename}")
                 
                 return html_content
             finally:
@@ -113,13 +128,6 @@ class Credly:
                 response.raise_for_status()
                 
                 html_content = response.text
-                
-                # Save fallback HTML content to file for debugging
-                filename = f"credly_html_{self.USER}_fallback.html"
-                with open(filename, "w", encoding="utf-8") as f:
-                    f.write(html_content)
-                print(f"Fallback HTML content saved to: {filename}")
-                print("Note: This may not contain JavaScript-rendered badges")
                 
                 return html_content
                 
@@ -185,37 +193,10 @@ class Credly:
         
         # Get image source and adjust size
         img_src = img.get("src", "")
-        if img_src:
-            # Replace size in URL if it contains size parameters
-            if "/size/80x80/" in img_src:
-                img_src = img_src.replace("/size/80x80/", f"/size/{self.BADGE_SIZE}x{self.BADGE_SIZE}/")
-            elif "110x110" in img_src:
-                img_src = img_src.replace("110x110", f"{self.BADGE_SIZE}x{self.BADGE_SIZE}")
-            elif "/w_" in img_src:
-                # Handle Cloudinary-style URLs
-                img_src = img_src.replace("/w_110", f"/w_{self.BADGE_SIZE}")
-        
-        # For new structure, we need to construct the badge URL from the image URL
-        badge_href = ""
-        if img_src:
-            # Extract badge ID from image URL if possible
-            # Example: https://images.credly.com/size/80x80/images/bc08972c-3c7d-4b99-82a0-c94bcca36674/Badges_v8-07_Practitioner.png
-            try:
-                import re
-                badge_id_match = re.search(r'/images/([a-f0-9-]+)/', img_src)
-                if badge_id_match:
-                    badge_id = badge_id_match.group(1)
-                    badge_href = f"{self.BASE_URL}/badges/{badge_id}"
-            except:
-                pass
-        
-        # Fallback for old structure
-        if not badge_href and hasattr(htmlBadge, 'get'):
-            badge_href = self.BASE_URL + htmlBadge.get("href", "")
+
         
         return {
             "title": title.replace('"', '\\"'),
-            "href": badge_href,
             "img": img_src,
             "issuer": issuer,
             "issue_date": issue_date
@@ -259,7 +240,7 @@ class Credly:
             
         return "\n".join(
             map(
-                lambda it: f"[![{it['title']}]({it['img']})]({it['href']} \"{it['title']}\")",
+                lambda it: f"![{it['title']}]({it['img']} \"{it['title']}\")",
                 valid_badges,
             )
         )
@@ -324,23 +305,15 @@ def main():
     credly = Credly()
     
     print(f"Fetching badges for user: {credly.USER}")
-    print(f"Sort order: {credly.SORT}")
-    print(f"Badge size: {credly.BADGE_SIZE}")
     print(f"Number of badges: {credly.NUMBER_BADGES}")
     
-    # Test getting badges HTML
-    badges_html = credly.return_badges_html()
-    print(f"Found {len(badges_html)} badges")
-    
+   
     # Test markdown generation and save to file
     markdown = credly.get_markdown()
     
     if markdown:
         print("\nGenerated markdown (sorted by issue date - newest first):")
         print(markdown)
-        
-        # Save markdown to file
-        credly.save_markdown_to_file("badges.md")
     else:
         print("No markdown generated - check if badges were found")
     
