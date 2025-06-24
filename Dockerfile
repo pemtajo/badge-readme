@@ -13,18 +13,18 @@ RUN apt-get update && apt-get install -y \
     software-properties-common \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy code
+# Set working directory for GitHub Actions
+WORKDIR /github/workspace
+
+# Copy code to the working directory
 COPY . .
 
 # Install dependencies and setup Chrome using Docker-specific script
-RUN chmod +x /setup_chrome.sh
-RUN /setup_chrome.sh
-
-# Set working directory
-WORKDIR /
+RUN chmod +x setup_chrome.sh
+RUN ./setup_chrome.sh
 
 # Test ChromeDriver before running main app
 RUN python3 test_chromedriver.py
 
 # Run the application
-CMD python3 main.py
+CMD ["python3", "main.py"]
