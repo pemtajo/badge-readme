@@ -27,4 +27,4 @@ WORKDIR /
 RUN python3 test_chromedriver.py
 
 # Run the application
-CMD ["python3", "main.py"]
+CMD python3 main.py
