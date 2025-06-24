@@ -3,3 +3,4 @@ lxml
 PyGithub
 requests
 selenium
+webdriver-manager

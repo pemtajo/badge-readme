@@ -1,12 +1,12 @@
-version: "3.7"
+version: '3.8'
+
 services:
-  badge-readme:
+  credly-scraper:
     build: .
-    container_name: dev-badge-readme
-    image: dev-badge-readme
-    env_file:
-     - .env
+    container_name: credly-scraper
+    environment:
+      - PYTHONUNBUFFERED=1
     volumes:
-      - ./main.py:/main.py
-      - ./settings.py:/settings.py
-      - ./services:/services
+      - ./output:/output
+    command: python3 main.py
+    restart: unless-stopped
