@@ -135,10 +135,6 @@ class Credly:
                 print(f"Fallback method also failed: {fallback_error}")
                 return None
 
-    def sort_by(self):
-        """Return sort parameter for Credly URL"""
-        return "most_popular" if self.SORT == "POPULAR" else "-state_updated_at"
-
     def convert_to_dict(self, htmlBadge):
         """Convert badge HTML element to dictionary"""
         soupBadge = BeautifulSoup(str(htmlBadge), "lxml")
