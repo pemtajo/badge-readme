@@ -16,6 +16,8 @@
 - [Features](#features)
 - [Quick Start](#quick-start)
 - [Configuration](#configuration)
+- [Troubleshooting](#troubleshooting)
+- [Development](#development)
 - [Usage Examples](#usage-examples)
 - [Contributing](#contributing)
 - [Testing](#testing)
@@ -145,6 +147,62 @@ For other repositories, add your GitHub token to repository secrets:
   with:
     GH_TOKEN: ${{ secrets.GH_TOKEN }}
     REPOSITORY: username/username
+```
+
+## 🔧 Troubleshooting
+
+### ChromeDriver Issues
+If you encounter ChromeDriver errors like "Status code was: 127", the setup has been improved with:
+
+1. **webdriver-manager**: Automatically downloads and manages compatible ChromeDriver versions
+2. **Enhanced setup script**: Better dependency management and error handling
+3. **Environment detection**: Automatically detects Docker vs regular system
+4. **Test verification**: ChromeDriver test script to verify setup
+
+#### Quick Fix
+Run the test script to verify ChromeDriver:
+```bash
+python3 test_chromedriver.py
+```
+
+#### Manual Setup
+If issues persist, run the setup script:
+```bash
+chmod +x setup_chrome.sh
+./setup_chrome.sh
+```
+
+### Common Issues
+- **Permission errors**: Ensure setup scripts are executable
+- **Network issues**: Check internet connectivity for Chrome/ChromeDriver download
+- **Memory issues**: Chrome headless mode uses significant memory
+
+## 🛠️ Development
+
+### Local Development
+1. Clone the repository
+2. Install dependencies: `pip install -r requirements.txt`
+3. Run setup: `./setup_chrome.sh`
+4. Test ChromeDriver: `python3 test_chromedriver.py`
+5. Run scraper: `python3 main.py`
+
+### Docker Development
+```bash
+# Build and run with Docker
+docker-compose up --build
+
+# Or build manually
+docker build -t credly-scraper .
+docker run credly-scraper
+```
+
+### Testing
+```bash
+# Run unit tests
+python3 -m pytest tests/
+
+# Run ChromeDriver test
+python3 test_chromedriver.py
 ```
 
 ## 💡 Usage Examples
@@ -319,7 +377,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - **Credly** for providing the badge platform
-- **GitHub Actions** for the automation infrastructure[text](about:blank#blocked)
+- **GitHub Actions** for the automation infrastructure
 - **Contributors** who help improve this project
 - **Open Source Community** for inspiration and support
 

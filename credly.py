@@ -3,9 +3,11 @@ import time
 import requests
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
 
 from settings import (
     CREDLY_USER,
@@ -44,10 +46,23 @@ class Credly:
         chrome_options.add_argument("--silent")
         
         try:
-            return webdriver.Chrome(options=chrome_options)
+            # Use webdriver-manager to automatically download and manage ChromeDriver
+            print("Setting up ChromeDriver using webdriver-manager...")
+            service = Service(ChromeDriverManager().install())
+            driver = webdriver.Chrome(service=service, options=chrome_options)
+            print("ChromeDriver initialized successfully")
+            return driver
         except Exception as e:
             print(f"Failed to initialize Chrome WebDriver: {e}")
-            raise
+            print("Trying fallback method without webdriver-manager...")
+            try:
+                # Fallback to direct ChromeDriver usage
+                driver = webdriver.Chrome(options=chrome_options)
+                print("ChromeDriver initialized with fallback method")
+                return driver
+            except Exception as fallback_error:
+                print(f"Fallback method also failed: {fallback_error}")
+                raise
 
     def data_from_html(self):
         """Get HTML content from Credly profile page using Selenium"""
