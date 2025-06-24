@@ -49,7 +49,7 @@ if [ -f "test_chromedriver.py" ]; then\n\
     python3 test_chromedriver.py\n\
 fi\n\
 echo "Running main application..."\n\
-python3 main.py' > /entrypoint.sh && chmod +x /entrypoint.sh
+python3 /app/main.py' > /entrypoint.sh && chmod +x /entrypoint.sh
 
 RUN ls -la
 
