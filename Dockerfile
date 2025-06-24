@@ -16,17 +16,36 @@ RUN apt-get update && apt-get install -y \
 # Set working directory for GitHub Actions
 WORKDIR /github/workspace
 
-# Copy code to the working directory
-COPY . .
+# Install Python dependencies globally
+RUN pip3 install --upgrade pip
+RUN pip3 install webdriver-manager
 
-# Install dependencies and setup Chrome using Docker-specific script
-RUN chmod +x setup_chrome.sh
-RUN ./setup_chrome.sh
+# Install Google Chrome
+RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' && \
+    apt-get update && \
+    apt-get install -y google-chrome-stable && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-# Test ChromeDriver before running main app
-RUN python3 test_chromedriver.py
+# Create entrypoint script
+RUN echo '#!/bin/bash\n\
+echo "Setting up environment..."\n\
+if [ -f "requirements.txt" ]; then\n\
+    echo "Installing Python dependencies from requirements.txt..."\n\
+    pip3 install -r requirements.txt\n\
+fi\n\
+if [ -f "setup_chrome.sh" ]; then\n\
+    echo "Running setup script..."\n\
+    chmod +x setup_chrome.sh\n\
+    ./setup_chrome.sh\n\
+fi\n\
+if [ -f "test_chromedriver.py" ]; then\n\
+    echo "Testing ChromeDriver..."\n\
+    python3 test_chromedriver.py\n\
+fi\n\
+echo "Running main application..."\n\
+python3 main.py' > /entrypoint.sh && chmod +x /entrypoint.sh
 
-RUN ls -la
-
-# Run the application
-CMD ["python3", "main.py"]
+# Run the entrypoint script
+ENTRYPOINT ["/entrypoint.sh"]
