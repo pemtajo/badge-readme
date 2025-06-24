@@ -36,7 +36,7 @@
 ## 🚀 Why Version 3.0.0?
 
 ### The Challenge
-Credly recently updated their website with a completely new HTML structure and user interface. This broke the existing badge extraction functionality in version 1.x.x.
+Credly recently updated their website with a completely new HTML structure and user interface. This broke the existing badge extraction functionality in version 2.x.x.
 
 ### What Changed in Credly
 - **New HTML structure** with different class names
@@ -261,7 +261,7 @@ Our test suite covers:
 
 ### HTML Structure Changes
 
-**Old Structure (v1.x.x):**
+**Old Structure (v2.x.x):**
 ```html
 <div class="data-table-row">
   <img class="badge-image" src="...">
@@ -307,7 +307,7 @@ Dates are extracted from Portuguese format "Issued dd/mm/yy" and converted to so
 - `CREDLY_SORT` parameter (no longer supported by Credly)
 - `BADGE_SIZE` parameter (no longer configurable)
 
-### [1.x.x] - Previous Versions
+### [2.x.x] - Previous Versions
 - Basic badge extraction
 - Configurable sorting and badge size
 - Simple markdown generation
