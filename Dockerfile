@@ -1,5 +1,4 @@
-FROM python:3.10-slim
-
+FROM python
 # Copy code.
 COPY . .
 # Install dependencies.
