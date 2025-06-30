@@ -18,14 +18,13 @@ from settings import (
 class Credly:
     def __init__(self, username=None, number_badges=None, f=None):
         self.FILE = f
-        self.BASE_URL = "https://www.credly.com"  # Updated to https
-        self.USER = username or CREDLY_USER or "pemtajo"
+        self.BASE_URL = "https://www.credly.com"
+        self.USER = username or CREDLY_USER or "kota.ogihara"
         self.NUMBER_BADGES = number_badges or NUMBER_LAST_BADGES or 0
 
         print(f"Credly scraper initialized for user: {self.USER}")
 
     def get_webdriver(self):
-        """Initialize Chrome WebDriver with headless options"""
         chrome_options = Options()
         chrome_options.add_argument("--headless=new")
         chrome_options.add_argument("--no-sandbox")
@@ -41,12 +40,10 @@ class Credly:
         chrome_options.add_argument("--remote-debugging-port=9222")
         chrome_options.add_argument("--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36")
         
-        # Add logging to debug issues
         chrome_options.add_argument("--log-level=3")
         chrome_options.add_argument("--silent")
         
         try:
-            # Use webdriver-manager to automatically download and manage ChromeDriver
             print("Setting up ChromeDriver using webdriver-manager...")
             service = Service(ChromeDriverManager().install())
             driver = webdriver.Chrome(service=service, options=chrome_options)
@@ -56,7 +53,6 @@ class Credly:
             print(f"Failed to initialize Chrome WebDriver: {e}")
             print("Trying fallback method without webdriver-manager...")
             try:
-                # Fallback to direct ChromeDriver usage
                 driver = webdriver.Chrome(options=chrome_options)
                 print("ChromeDriver initialized with fallback method")
                 return driver
@@ -65,7 +61,6 @@ class Credly:
                 raise
 
     def data_from_html(self):
-        """Get HTML content from Credly profile page using Selenium"""
         if self.FILE:
             with open(self.FILE, "r") as f:
                 return f.read()
@@ -73,23 +68,19 @@ class Credly:
         url = f"{self.BASE_URL}/users/{self.USER}"
         print(f"Fetching data from: {url}")
         
-        # Try Selenium first
         try:
             driver = self.get_webdriver()
             try:
                 driver.get(url)
                 
-                # Wait for the React app to initialize (look for the root element to have content)
                 print("Waiting for page to load...")
                 WebDriverWait(driver, 15).until(
                     lambda d: d.find_element(By.ID, "root").get_attribute("innerHTML").strip() != ""
                 )
                 
-                # Additional wait for JavaScript to fully render
                 print("Page loaded, waiting for content to stabilize...")
                 time.sleep(5)
                 
-                # Try to click the "see all" button to load all badges
                 try:
                     see_all_button_selector = ".settings__skills-profile__edit-skills-profile__badge-list__see-all button"
                     see_all_button = WebDriverWait(driver, 10).until(
@@ -102,12 +93,10 @@ class Credly:
                     print("Found 'See all' button, clicking to expand badges...")
                     driver.execute_script("arguments[0].click();", see_all_button)
                     
-                    # Wait for more badges to be loaded, or for the button to disappear
                     WebDriverWait(driver, 15).until(
                         lambda d: len(d.find_elements(By.CSS_SELECTOR, "[class*='badge-card__card']")) > initial_badge_count or not d.find_elements(By.CSS_SELECTOR, see_all_button_selector)
                     )
                     
-                    # Extra wait for rendering
                     time.sleep(3)
                     
                     final_badge_count = len(driver.find_elements(By.CSS_SELECTOR, "[class*='badge-card__card']"))
@@ -120,12 +109,6 @@ class Credly:
                 
                 html_content = driver.page_source
                 
-                # Save HTML content to file for debugging
-                # filename = f"credly_html_{self.USER}_all_badges.html"
-                # with open(filename, "w", encoding="utf-8") as f:
-                #     f.write(html_content)
-                # print(f"HTML content with all badges saved to: {filename}")
-                
                 return html_content
             finally:
                 driver.quit()
@@ -134,7 +117,6 @@ class Credly:
             print(f"Selenium failed: {e}")
             print("Trying fallback method with requests...")
             
-            # Fallback to simple requests (won't work with JS-rendered content, but for debugging)
             try:
                 headers = {
                     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36'
@@ -151,81 +133,78 @@ class Credly:
                 return None
 
     def convert_to_dict(self, htmlBadge):
-        """Convert badge HTML element to dictionary"""
         soupBadge = BeautifulSoup(str(htmlBadge), "lxml")
         
-        # Look for image with different possible class names
         img = None
         possible_img_classes = [
             "settings__skills-profile__edit-skills-profile__badge-card__badge-image",
             "cr-standard-grid-item-content__image",
             "cr-public-earned-badge-grid-item__image",
-            "badge-image"
+            "badge-image",
+            "cr-standard-grid-item-content__image"
         ]
         
         for img_class in possible_img_classes:
-            imgs = soupBadge.findAll("img", {"class": img_class})
+            imgs = soupBadge.find_all("img", {"class": img_class})
             if imgs:
                 img = imgs[0]
                 break
         
         if not img:
-            # Fallback: find any img tag
             img = soupBadge.find("img")
         
         if not img:
             return None
         
-        # Get badge title from the new structure
         title = ""
         title_element = soupBadge.find("div", {"class": lambda x: x and "organization-name-two-lines" in x})
         if title_element:
             title = title_element.get_text(strip=True)
         else:
-            # Fallback to alt text
             title = img.get("alt", "Badge")
         
-        # Get issuer
         issuer = ""
         issuer_element = soupBadge.find("div", {"class": lambda x: x and "issuer-name-two-lines" in x})
         if issuer_element:
             issuer = issuer_element.get_text(strip=True)
         
-        # Get issue date
         issue_date = ""
         issue_date_element = soupBadge.find("div", {"class": lambda x: x and "badge-card__issued" in x})
         if issue_date_element:
             date_text = issue_date_element.get_text(strip=True)
-            # Extract date from "Emitida dd/mm/yy" format
             import re
             date_match = re.search(r'(\d{2}/\d{2}/\d{2})', date_text)
             if date_match:
                 issue_date = date_match.group(1)
         
-        # Get image source and adjust size
         img_src = img.get("src", "")
+        
+        href = ""
+        href_element = soupBadge.find("a", {"class": lambda x: x and "Cardstyles__StyledContainer-fredly__sc-1yaakoz-0" in x})
+        if href_element and href_element.get("href"):
+            href = self.BASE_URL + href_element["href"]
+        else:
+            href = f"{self.BASE_URL}/users/{self.USER}/badges"
 
         
         return {
             "title": title.replace('"', '\\"'),
             "img": img_src,
             "issuer": issuer,
-            "issue_date": issue_date
+            "issue_date": issue_date,
+            "href": href
         }
 
     def return_badges_html(self):
-        """Get all badge HTML elements from the page"""
         data = self.data_from_html()
         if not data:
             return []
             
         soup = BeautifulSoup(data, "lxml")
         
-        # Look for the new badge structure
-        badges = soup.findAll("div", {"class": lambda x: x and "badge-card__card" in x})
+        badges = soup.find_all("div", {"class": lambda x: x and "badge-card__card" in x})
         
         if not badges:
-            # Fallback to try old structure
             possible_badge_classes = [
                 "cr-public-earned-badge-grid-item",
                 "cr-earned-badge-grid-item",
@@ -233,15 +212,20 @@ class Credly:
             ]
             
             for badge_class in possible_badge_classes:
-                badges = soup.findAll("a", {"class": badge_class})
+                badges = soup.find_all("a", {"class": badge_class})
                 if badges:
                     break
+        
+        if not badges:
+            credly_images = soup.find_all('img', src=lambda x: x and 'images.credly.com' in x)
+            if credly_images:
+                print(f"Found {len(credly_images)} badges using image search")
+                badges = [img.find_parent() or img for img in credly_images]
         
         print(f"Found {len(badges)} badge elements in HTML")
         return badges
 
     def generate_md_format(self, badges):
-        """Generate markdown format for badges"""
         if not badges:
             return None
         
@@ -251,13 +235,12 @@ class Credly:
             
         return "\n".join(
             map(
-                lambda it: f"![{it['title']}]({it['img']} \"{it['title']}\")",
+                lambda it: f"[![{it['title']}]({it['img']})]({it['href']} \"{it['title']}\")",
                 valid_badges,
             )
         )
 
     def get_markdown(self):
-        """Get markdown representation of badges"""
         badges_html = self.return_badges_html()
         
         if self.NUMBER_BADGES > 0:
@@ -269,24 +252,20 @@ class Credly:
             if badge_dict:
                 badge_dicts.append(badge_dict)
         
-        # Sort badges by issue date (newest first)
         def parse_date(date_str):
             if not date_str:
                 return None
             try:
                 day, month, year = date_str.split('/')
-                # Convert 2-digit year to 4-digit year
                 year = '20' + year if int(year) < 50 else '19' + year
                 return f"{year}-{month.zfill(2)}-{day.zfill(2)}"
             except:
                 return None
         
-        # Show extracted dates for debugging
         print("\nExtracted badge dates:")
         for badge in badge_dicts:
             print(f"  {badge['title']}: {badge.get('issue_date', 'No date')}")
         
-        # Sort by date, putting badges without dates at the end
         badge_dicts.sort(key=lambda x: parse_date(x.get('issue_date', '')) or '1900-01-01', reverse=True)
         
         print("\nSorted badges (newest first):")
@@ -296,7 +275,6 @@ class Credly:
         return self.generate_md_format(badge_dicts)
 
     def save_markdown_to_file(self, filename="badges.md"):
-        """Save markdown representation of badges to a file"""
         markdown = self.get_markdown()
         if markdown:
             with open(filename, "w", encoding="utf-8") as f:
@@ -309,17 +287,13 @@ class Credly:
 
 
 def main():
-    """Main function for testing the Credly scraper"""
     print("Testing Credly scraper...")
     
-    # Test with default settings
     credly = Credly()
     
     print(f"Fetching badges for user: {credly.USER}")
     print(f"Number of badges: {credly.NUMBER_BADGES}")
     
-   
-    # Test markdown generation and save to file
     markdown = credly.get_markdown()
     
     if markdown:
