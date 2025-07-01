@@ -19,7 +19,7 @@ class Credly:
     def __init__(self, username=None, number_badges=None, f=None):
         self.FILE = f
         self.BASE_URL = "https://www.credly.com"
-        self.USER = username or CREDLY_USER or "kota.ogihara"
+        self.USER = username or CREDLY_USER or "pemtajo"
         self.NUMBER_BADGES = number_badges or NUMBER_LAST_BADGES or 0
 
         print(f"Credly scraper initialized for user: {self.USER}")
@@ -80,30 +80,6 @@ class Credly:
                 
                 print("Page loaded, waiting for content to stabilize...")
                 time.sleep(5)
-                
-                try:
-                    see_all_button_selector = ".settings__skills-profile__edit-skills-profile__badge-list__see-all button"
-                    see_all_button = WebDriverWait(driver, 10).until(
-                        EC.element_to_be_clickable((By.CSS_SELECTOR, see_all_button_selector))
-                    )
-                    
-                    initial_badge_count = len(driver.find_elements(By.CSS_SELECTOR, "[class*='badge-card__card']"))
-                    print(f"Initial badge count: {initial_badge_count}")
-
-                    print("Found 'See all' button, clicking to expand badges...")
-                    driver.execute_script("arguments[0].click();", see_all_button)
-                    
-                    WebDriverWait(driver, 15).until(
-                        lambda d: len(d.find_elements(By.CSS_SELECTOR, "[class*='badge-card__card']")) > initial_badge_count or not d.find_elements(By.CSS_SELECTOR, see_all_button_selector)
-                    )
-                    
-                    time.sleep(3)
-                    
-                    final_badge_count = len(driver.find_elements(By.CSS_SELECTOR, "[class*='badge-card__card']"))
-                    print(f"Expanded badges. Final badge count: {final_badge_count}")
-
-                except Exception as e:
-                    print(f"Could not find or click 'See all' button, or no new badges loaded: {e}")
 
                 print("Getting page source...")
                 
@@ -141,7 +117,8 @@ class Credly:
             "cr-standard-grid-item-content__image",
             "cr-public-earned-badge-grid-item__image",
             "badge-image",
-            "cr-standard-grid-item-content__image"
+            "cr-standard-grid-item-content__image",
+            "EarnedBadgeCardstyles__ImageContainer-fredly__sc-gsqjwh-0"
         ]
         
         for img_class in possible_img_classes:
@@ -157,32 +134,61 @@ class Credly:
             return None
         
         title = ""
-        title_element = soupBadge.find("div", {"class": lambda x: x and "organization-name-two-lines" in x})
+        title_element = soupBadge.find("span", {"class": lambda x: x and "EarnedBadgeCardstyles__BadgeNameText" in x})
         if title_element:
             title = title_element.get_text(strip=True)
         else:
-            title = img.get("alt", "Badge")
+            title_element = soupBadge.find("div", {"class": lambda x: x and "organization-name-two-lines" in x})
+            if title_element:
+                title = title_element.get_text(strip=True)
+            else:
+                title = img.get("alt", "Badge")
         
         issuer = ""
-        issuer_element = soupBadge.find("div", {"class": lambda x: x and "issuer-name-two-lines" in x})
+        issuer_element = soupBadge.find("span", {"class": lambda x: x and "EarnedBadgeCardstyles__IssuerText" in x})
         if issuer_element:
             issuer = issuer_element.get_text(strip=True)
+        else:
+            issuer_element = soupBadge.find("div", {"class": lambda x: x and "issuer-name-two-lines" in x})
+            if issuer_element:
+                issuer = issuer_element.get_text(strip=True)
         
         issue_date = ""
-        issue_date_element = soupBadge.find("div", {"class": lambda x: x and "badge-card__issued" in x})
+        issue_date_element = soupBadge.find("span", {"class": lambda x: x and "EarnedBadgeCardstyles__ExpirationDateText" in x})
         if issue_date_element:
             date_text = issue_date_element.get_text(strip=True)
             import re
             date_match = re.search(r'(\d{2}/\d{2}/\d{2})', date_text)
             if date_match:
                 issue_date = date_match.group(1)
+        else:
+            issue_date_element = soupBadge.find("div", {"class": lambda x: x and "badge-card__issued" in x})
+            if issue_date_element:
+                date_text = issue_date_element.get_text(strip=True)
+                import re
+                date_match = re.search(r'(\d{2}/\d{2}/\d{2})', date_text)
+                if date_match:
+                    issue_date = date_match.group(1)
         
         img_src = img.get("src", "")
+        img_src = img_src.replace("https://images.credly.com/", "https://images.credly.com/size/80x80/")
         
         href = ""
-        href_element = soupBadge.find("a", {"class": lambda x: x and "Cardstyles__StyledContainer-fredly__sc-1yaakoz-0" in x})
-        if href_element and href_element.get("href"):
-            href = self.BASE_URL + href_element["href"]
+        # Try to find the div with role="button" that contains the href
+        href_element = soupBadge.find("div", {"role": "button", "data-testid": "desktop-badge-card"})
+        if not href_element:
+            # Try alternative selector for the card container
+            href_element = soupBadge.find("div", {"class": lambda x: x and "Cardstyles__StyledContainer-fredly__sc-1yaakoz-0" in x})
+        if not href_element:
+            # Try to find any div with href attribute
+            href_element = soupBadge.find("div", attrs={"href": True})
+        
+        if href_element:
+            href_attr = href_element.get("href")
+            if href_attr:
+                href = self.BASE_URL + href_attr
+            else:
+                href = f"{self.BASE_URL}/users/{self.USER}/badges"
         else:
             href = f"{self.BASE_URL}/users/{self.USER}/badges"
 
@@ -202,25 +208,61 @@ class Credly:
             
         soup = BeautifulSoup(data, "lxml")
         
-        badges = soup.find_all("div", {"class": lambda x: x and "badge-card__card" in x})
+        # First, try to find complete badge cards with href attributes
+        badges = soup.find_all("div", {"role": "button", "data-testid": "desktop-badge-card"})
+        if badges:
+            print(f"Found {len(badges)} complete badge cards with href")
+            return badges
         
-        if not badges:
-            possible_badge_classes = [
-                "cr-public-earned-badge-grid-item",
-                "cr-earned-badge-grid-item",
-                "badge-grid-item"
-            ]
-            
-            for badge_class in possible_badge_classes:
-                badges = soup.find_all("a", {"class": badge_class})
-                if badges:
-                    break
+        # Try alternative badge card selectors
+        badges = soup.find_all("div", {"class": lambda x: x and "Cardstyles__StyledContainer-fredly__sc-1yaakoz-0" in x})
+        if badges:
+            print(f"Found {len(badges)} badge cards using Cardstyles selector")
+            return badges
         
-        if not badges:
-            credly_images = soup.find_all('img', src=lambda x: x and 'images.credly.com' in x)
-            if credly_images:
-                print(f"Found {len(credly_images)} badges using image search")
-                badges = [img.find_parent() or img for img in credly_images]
+        # Try other possible badge card classes
+        possible_badge_classes = [
+            "EarnedBadgeCardstyles__StyledCard-fredly__sc-gsqjwh-1",
+            "cr-public-earned-badge-grid-item",
+            "cr-earned-badge-grid-item",
+            "badge-grid-item",
+            "badge-card__card"
+        ]
+        
+        for badge_class in possible_badge_classes:
+            badges = soup.find_all("div", {"class": lambda x: x and badge_class in x})
+            if badges:
+                print(f"Found {len(badges)} badges using class: {badge_class}")
+                return badges
+        
+        # Fallback: find any div that contains href attribute
+        badges = soup.find_all("div", attrs={"href": True})
+        if badges:
+            print(f"Found {len(badges)} badges with href attribute")
+            return badges
+        
+        # Last resort: find images and try to get their parent containers
+        credly_images = soup.find_all('img', src=lambda x: x and 'images.credly.com' in x)
+        if credly_images:
+            print(f"Found {len(credly_images)} badge images - trying to find parent containers")
+            badges = []
+            for img in credly_images:
+                # Try to find the parent badge card container
+                parent = img
+                for _ in range(5):  # Look up to 5 levels up
+                    parent = parent.find_parent()
+                    if not parent:
+                        break
+                    # Check if this parent has href or is a badge card
+                    if parent.get("href") or parent.get("role") == "button":
+                        badges.append(parent)
+                        break
+                    if parent.get("class") and any("Card" in cls for cls in parent.get("class", [])):
+                        badges.append(parent)
+                        break
+                else:
+                    # If no suitable parent found, use the image's immediate parent
+                    badges.append(img.find_parent() or img)
         
         print(f"Found {len(badges)} badge elements in HTML")
         return badges
@@ -249,7 +291,7 @@ class Credly:
         badge_dicts = []
         for badge in badges_html:
             badge_dict = self.convert_to_dict(badge)
-            if badge_dict:
+            if badge_dict and badge_dict["title"] != "Profile":
                 badge_dicts.append(badge_dict)
         
         def parse_date(date_str):
@@ -306,4 +348,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    markdown = main()
+    if markdown:
+        with open("test.md", "w", encoding="utf-8") as f:
+            f.write(markdown)
+        print("Markdown saved to test.md")
