@@ -275,9 +275,10 @@ class Credly:
         if not valid_badges:
             return None
             
+        # Use HTML img tags with explicit size instead of markdown image syntax
         return "\n".join(
             map(
-                lambda it: f"[![{it['title']}]({it['img']})]({it['href']} \"{it['title']}\")",
+                lambda it: f'<a href="{it["href"]}" title="{it["title"]}"><img src="{it["img"]}" alt="{it["title"]}" width="80" height="80"></a>',
                 valid_badges,
             )
         )
