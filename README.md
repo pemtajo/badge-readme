@@ -343,7 +343,30 @@ Dates are extracted from Portuguese format "Issued dd/mm/yy" and converted to so
 - Parsed: `2020-11-22`
 - Sorted: Newest first
 
-## 📋 Changelog
+## �� Changelog
+
+### [3.1.0] - 2024-12-XX
+
+#### 🆕 Added
+- **Selenium WebDriver integration** for JavaScript-rendered content
+- **Individual badge links** to specific verification pages
+- **HTML output format** with explicit 80×80 pixel sizing
+- **Enhanced badge detection** using multiple CSS selectors and fallbacks
+- **Automatic ChromeDriver management** with `webdriver-manager`
+- **Comprehensive error handling** with fallback methods
+
+#### 🔄 Changed
+- **Output format** switched from markdown images to HTML `<img>` tags for proper sizing
+- **Badge link extraction** from `div` elements with `role="button"` and `href` attributes
+- **Performance optimizations** for Chrome headless mode
+- **Documentation** updated with new examples and troubleshooting
+
+#### 🐛 Fixed
+- **Badge sizing issues** – images now always render at 80 × 80 px
+- **JavaScript rendering** – properly waits for dynamic badge content
+
+#### ❌ Removed
+- Deprecated `BADGE_SIZE` parameter (size now fixed at 80 × 80 px)
 
 ### [3.0.0] - 2024-01-XX
 
