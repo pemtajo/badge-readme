@@ -12,7 +12,7 @@
 ## 📋 Table of Contents
 
 - [About](#about)
-- [Why Version 3.0.0?](#why-version-200)
+- [Why Version 3.1.0?](#why-version-310)
 - [Features](#features)
 - [Quick Start](#quick-start)
 - [Configuration](#configuration)
@@ -35,7 +35,7 @@
 - ⚡ **Fast and reliable** badge extraction
 - 🔧 **Easy to configure** with minimal setup
 
-## 🚀 Why Version 3.0.0?
+## 🚀 Why Version 3.1.0?
 
 ### The Challenge
 Credly recently updated their website with a completely new HTML structure and user interface. This broke the existing badge extraction functionality in version 2.x.x.
@@ -47,7 +47,7 @@ Credly recently updated their website with a completely new HTML structure and u
 - **Changed date format** and extraction methods
 
 ### Our Solution
-Version 3.0.0 completely refactors the badge extraction to work with Credly's new interface:
+Version 3.1.0 completely refactors the badge extraction to work with Credly's new interface:
 
 - ✅ **Automatic badge expansion** - Clicks "See all badges" to load everything
 - ✅ **Updated HTML parser** - Works with new class names and structure
@@ -56,7 +56,7 @@ Version 3.0.0 completely refactors the badge extraction to work with Credly's ne
 
 ## ✨ Features
 
-### 🆕 Version 3.0.0 Features
+### 🆕 Version 3.1.0 Features
 - **🎯 Smart Badge Extraction**: Automatically expands to show all badges
 - **📅 Date-Based Sorting**: Organizes badges by issue date (newest first)
 - **🔄 Modern HTML Parser**: Compatible with Credly's new interface
@@ -343,7 +343,7 @@ Dates are extracted from Portuguese format "Issued dd/mm/yy" and converted to so
 - Parsed: `2020-11-22`
 - Sorted: Newest first
 
-## �� Changelog
+## 📋 Changelog
 
 ### [3.1.0] - 2024-12-XX
 
