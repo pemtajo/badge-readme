@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import time
 import requests
+from urllib.parse import urlparse
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -242,7 +243,10 @@ class Credly:
             return badges
         
         # Last resort: find images and try to get their parent containers
-        credly_images = soup.find_all('img', src=lambda x: x and 'images.credly.com' in x)
+        credly_images = soup.find_all(
+            'img',
+            src=lambda x: x and urlparse(x).hostname == "images.credly.com"
+        )
         if credly_images:
             print(f"Found {len(credly_images)} badge images - trying to find parent containers")
             badges = []
