@@ -1,6 +1,17 @@
 beautifulsoup4
 lxml
 PyGithub
-requests
-selenium
 webdriver-manager
+
+# Python dependencies - minimum secure versions to address CVEs
+# This file documents the minimum required versions for security compliance
+# Install only when Python packages are needed in the project
+
+# Direct dependencies with security fixes
+selenium>=4.15.1  # CVE fix: NULL Pointer Dereference (CWE-476, CVSS 7.5)
+requests>=2.32.4  # CVE fix: Insertion of Sensitive Information Into Sent Data (CWE-201, CVSS 5.7)
+
+# Transitive dependencies with security fixes - pinned to secure versions
+h11>=0.16.0       # CVE fix: HTTP Request Smuggling (CWE-444, CVSS 9.3)
+zipp>=3.19.1      # CVE fix: Infinite loop (CWE-835, CVSS 6.9)
+urllib3>=2.5.0    # CVE fix: Open Redirect (CWE-601) and other issues (CVSS 6.0)
