@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM python:3.14.2-alpine3.23
 
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
