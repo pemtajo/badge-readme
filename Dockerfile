@@ -1,4 +1,4 @@
-FROM python:3.14.2-slim-trixie
+FROM ghcr.io/astral-sh/uv:python3.14-trixie-slim
 
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
@@ -10,17 +10,18 @@ RUN apt-get update && apt-get install -y \
     curl \
     unzip \
     gnupg2 \
+    ca-certificates \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /app
 
 # Copy requirements first for better caching
-COPY requirements.txt .
+COPY pyproject.toml uv.lock ./
 
 # Install Python dependencies
-RUN pip3 install --upgrade pip
-RUN pip3 install -r requirements.txt
+RUN uv sync --frozen --no-install-project
 
 # Copy the rest of the code
 COPY . .
@@ -30,9 +31,9 @@ RUN chmod +x setup_chrome.sh
 RUN ./setup_chrome.sh
 
 # Test ChromeDriver before running main app
-RUN python3 test_chromedriver.py
+RUN uv run python test_chromedriver.py
 
 RUN ls -la
 
 # Run the application
-CMD ["python3", "/app/main.py"]
+CMD ["uv", "run", "python", "main.py"]
