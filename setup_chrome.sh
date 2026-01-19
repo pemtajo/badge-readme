@@ -3,11 +3,11 @@ set -e
 
 echo "Setting up Chrome and ChromeDriver for Docker environment..."
 
-# Update package list
-apt-get update
-
-# Install dependencies for Chrome
-apt-get install -y wget curl unzip gnupg2 ca-certificates
+# # Update package list
+# apt-get update
+# removing as already done in docker
+# # Install dependencies for Chrome
+# apt-get install -y wget curl unzip gnupg2 ca-certificates
 
 # Install Google Chrome (Debian method)
 if ! command -v google-chrome &> /dev/null; then
@@ -26,8 +26,7 @@ CHROME_VERSION=$(google-chrome --version)
 echo "Chrome version: $CHROME_VERSION"
 
 # Install webdriver-manager
-echo "Installing webdriver-manager..."
-pip3 install webdriver-manager
+echo "webdriver-manager is installed via uv sync"
 
 # Clean up to reduce image size
 apt-get clean
