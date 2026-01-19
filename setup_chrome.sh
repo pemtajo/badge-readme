@@ -5,7 +5,7 @@ echo "Setting up Chrome and ChromeDriver for Docker environment..."
 
 # # Update package list
 # apt-get update
-# removing as already done in docker
+# already done in the dockerfile
 # # Install dependencies for Chrome
 # apt-get install -y wget curl unzip gnupg2 ca-certificates
 
