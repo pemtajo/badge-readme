@@ -14,8 +14,10 @@ def generate_new_readme(md_badges, readme):
 
 
 if __name__ == "__main__":
-    git = GithubRepo()
     credly_badges = Credly()
+    print("Credly badges markdown:")
+    print(credly_badges.get_markdown())
+    git = GithubRepo()
     readme = git.get_readme()
 
     new_readme = generate_new_readme(credly_badges.get_markdown(), readme)
