@@ -36,4 +36,4 @@ RUN uv run python test_chromedriver.py
 RUN ls -la
 
 # Run the application
-CMD ["uv", "run", "python", "main.py"]
+CMD ["python", "/app/main.py"]
