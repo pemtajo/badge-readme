@@ -172,7 +172,7 @@ class Credly:
                     issue_date = date_match.group(1)
         
         img_src = img.get("src", "")
-        img_src = img_src.replace("https://images.credly.com/", "https://images.credly.com/size/340x100/")
+        img_src = img_src.replace("https://images.credly.com/", "https://images.credly.com/size/80x80/")
         
         href = ""
         # Try to find the div with role="button" that contains the href
