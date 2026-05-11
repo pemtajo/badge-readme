@@ -16,4 +16,4 @@ except:
 
 CREDLY_BASE_URL = "https://www.credly.com"
 
-LIST_REGEX = f"{START_COMMENT}[\\s\\S]+{END_COMMENT}"
+LIST_REGEX = f"{START_COMMENT}[\\s\\S]*{END_COMMENT}"

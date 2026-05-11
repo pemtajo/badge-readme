@@ -8,5 +8,5 @@ services:
       - PYTHONUNBUFFERED=1
     volumes:
       - ./output:/output
-    command: python3 main.py
+    command: ["uv", "run", "python", "main.py"]
     restart: unless-stopped
