@@ -24,13 +24,13 @@ COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-install-project
 
 # Copy the rest of the code
-COPY . .
+COPY setup_chrome.sh /app/
 
 # Install dependencies and setup Chrome using Docker-specific script
 RUN chmod +x setup_chrome.sh
 RUN ./setup_chrome.sh
 
-# Test ChromeDriver before running main app
+COPY . .
 RUN uv run python test_chromedriver.py
 
 RUN ls -la

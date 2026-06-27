@@ -1,0 +1,10 @@
+.env.example
+.git
+.gitignore
+.venv
+LICENSE
+*.md
+blob
+requirements.txt
+tests
+.venv/
