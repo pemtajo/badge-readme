@@ -123,12 +123,13 @@ class TestCredlyMarkdownGeneration(TestCase):
     def setUp(self):
         self.maxDiff = None
 
-    def test_markdown_format_without_links(self):
-        """Test that markdown is generated without href links (new format)"""
+    def test_markdown_format(self):
+        """Test that each badge is a sized <img> wrapped in a Markdown link"""
         test_badges = [
             {
                 'title': 'Test Badge',
                 'img': 'https://images.credly.com/size/110x110/test.png',
+                'href': 'https://www.credly.com/badges/test',
                 'issuer': 'IBM',
                 'issue_date': '22/11/20'
             }
@@ -137,8 +138,7 @@ class TestCredlyMarkdownGeneration(TestCase):
         credly = Credly()
         markdown = credly.generate_md_format(test_badges)
         
-        # Should generate markdown without href links
-        expected = '![Test Badge](https://images.credly.com/size/110x110/test.png "Test Badge")'
+        expected = '[<img src="https://images.credly.com/size/110x110/test.png" alt="Test Badge" width="80" height="80">](https://www.credly.com/badges/test)'
         self.assertEqual(markdown, expected)
 
     def test_markdown_with_multiple_badges(self):
@@ -147,12 +147,14 @@ class TestCredlyMarkdownGeneration(TestCase):
             {
                 'title': 'First Badge',
                 'img': 'https://images.credly.com/size/110x110/first.png',
+                'href': 'https://www.credly.com/badges/first',
                 'issuer': 'IBM',
                 'issue_date': '22/11/20'
             },
             {
                 'title': 'Second Badge',
                 'img': 'https://images.credly.com/size/110x110/second.png',
+                'href': 'https://www.credly.com/badges/second',
                 'issuer': 'IBM',
                 'issue_date': '28/11/20'
             }
@@ -161,7 +163,10 @@ class TestCredlyMarkdownGeneration(TestCase):
         credly = Credly()
         markdown = credly.generate_md_format(test_badges)
         
-        expected = '![First Badge](https://images.credly.com/size/110x110/first.png "First Badge")\n![Second Badge](https://images.credly.com/size/110x110/second.png "Second Badge")'
+        expected = (
+            '[<img src="https://images.credly.com/size/110x110/first.png" alt="First Badge" width="80" height="80">](https://www.credly.com/badges/first)\n'
+            '[<img src="https://images.credly.com/size/110x110/second.png" alt="Second Badge" width="80" height="80">](https://www.credly.com/badges/second)'
+        )
         self.assertEqual(markdown, expected)
 
     def test_markdown_with_no_badges(self):
@@ -172,11 +177,20 @@ class TestCredlyMarkdownGeneration(TestCase):
 
     def test_markdown_with_none_badges(self):
         """Test markdown generation when badges list contains None values"""
-        test_badges = [None, {'title': 'Valid Badge', 'img': 'test.png', 'issuer': 'IBM'}]
+        test_badges = [None, {'title': 'Valid Badge', 'img': 'test.png', 'href': 'https://www.credly.com/badges/valid', 'issuer': 'IBM'}]
         credly = Credly()
         markdown = credly.generate_md_format(test_badges)
         
-        expected = '![Valid Badge](test.png "Valid Badge")'
+        expected = '[<img src="test.png" alt="Valid Badge" width="80" height="80">](https://www.credly.com/badges/valid)'
+        self.assertEqual(markdown, expected)
+
+    def test_markdown_escapes_title(self):
+        """Test that quotes in a badge title don't break the alt attribute"""
+        test_badges = [{'title': 'Say "Hello" & <Bye>', 'img': 'test.png', 'href': 'https://www.credly.com/badges/quote'}]
+        credly = Credly()
+        markdown = credly.generate_md_format(test_badges)
+
+        expected = '[<img src="test.png" alt="Say &quot;Hello&quot; &amp; &lt;Bye&gt;" width="80" height="80">](https://www.credly.com/badges/quote)'
         self.assertEqual(markdown, expected)
 
 

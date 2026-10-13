@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+import html
 import time
 import requests
 from urllib.parse import urlparse
@@ -279,9 +280,12 @@ class Credly:
         if not valid_badges:
             return None
             
+        # Credly ignores the /size/80x80/ hint for many badges and serves the
+        # full-size image, so set the size on the <img> itself. Keep it inside
+        # a Markdown link so the badges stay inline and lay out horizontally.
         return "\n".join(
             map(
-                lambda it: f'[![{it["title"]}]({it["img"]})]({it["href"]})',
+                lambda it: f'[<img src="{html.escape(it["img"])}" alt="{html.escape(it["title"])}" width="80" height="80">]({it["href"]})',
                 valid_badges,
             )
         )
