@@ -305,7 +305,7 @@ class Credly:
                 day, month, year = date_str.split('/')
                 year = '20' + year if int(year) < 50 else '19' + year
                 return f"{year}-{month.zfill(2)}-{day.zfill(2)}"
-            except:
+            except ValueError:
                 return None
         
         print("\nExtracted badge dates:")
